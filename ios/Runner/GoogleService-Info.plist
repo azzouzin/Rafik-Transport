@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>163687543330-s0a4unolfb7ogqmehpa9r7b67rbh9mdb.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.163687543330-s0a4unolfb7ogqmehpa9r7b67rbh9mdb</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCVUbwGPcazYydaimMZ39MGHlZ9k4T60p8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>163687543330</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.rafik</string>
+	<key>PROJECT_ID</key>
+	<string>rafikfire-4600d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>rafikfire-4600d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:163687543330:ios:0a5c95edc9ba37b115507b</string>
+</dict>
+</plist>
