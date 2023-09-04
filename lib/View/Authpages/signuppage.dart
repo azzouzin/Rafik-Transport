@@ -107,10 +107,6 @@ class _SignupPageState extends State<SignupPage> {
         const SizedBox(
           height: 20,
         ),
-        mytextField(
-          controller: emailEditingController,
-          label: 'Email',
-        ),
         const SizedBox(
           height: 20,
         ),
@@ -263,7 +259,7 @@ class _SignupPageState extends State<SignupPage> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         mytextField(
           controller: emailEditingController,
-          label: 'Email',
+          label: 'Phone',
         ),
         const SizedBox(
           height: 20,
@@ -378,7 +374,7 @@ class _SignupPageState extends State<SignupPage> {
         ),
         mytextField(
           controller: emailEditingController,
-          label: 'Email',
+          label: 'Phone',
         ),
         const SizedBox(
           height: 20,

@@ -23,6 +23,8 @@ Widget mytextField({
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: TextField(
+            keyboardType:
+                label == "Phone" ? TextInputType.number : TextInputType.name,
             /* onTap: () {
             if (validateEmail(controller.text) != null) {
               Get.snackbar('Error', 'Invalid Email');
