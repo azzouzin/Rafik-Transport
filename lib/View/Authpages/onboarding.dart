@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:rafik/Controller/Services/tokens_service.dart';
 import 'package:rafik/View/Authpages/chosepage.dart';
+import 'package:rafik/View/Authpages/terms.dart';
 import 'package:rafik/View/Compenents/theme.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -278,5 +279,5 @@ class _OneBoardState extends State<OneBoard> {
 
 void _skip() {
   print('skip');
-  Get.toNamed("/chose");
+  Get.to(TermesPage());
 }

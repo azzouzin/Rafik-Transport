@@ -8,6 +8,7 @@ import 'package:rafik/Controller/Services/tokens_service.dart';
 import 'Controller/Bindings/homepagebindings.dart';
 import 'View/Authpages/chosepage.dart';
 import 'View/Authpages/signuppage.dart';
+import 'View/Authpages/terms.dart';
 import 'View/Compenents/theme.dart';
 import 'View/Authpages/onboarding.dart';
 import 'View/HomePages/DriverPages/driverhome.dart';
@@ -34,8 +35,8 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       //  home: Example(title: 'HOHO'),
-      //home: MapScreen(),
-      initialRoute: '/',
+      home: TermesPage(),
+      // initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => const OneBoard(), middlewares: [
           LoginMiddle(isOpend),
