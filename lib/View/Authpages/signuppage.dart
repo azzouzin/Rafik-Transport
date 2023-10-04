@@ -14,7 +14,6 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  TextEditingController emailEditingController = TextEditingController();
   TextEditingController passwordEditingController = TextEditingController();
   TextEditingController phoneEditingController = TextEditingController();
   TextEditingController nameEditingController = TextEditingController();
@@ -152,13 +151,11 @@ class _SignupPageState extends State<SignupPage> {
         mybutton(
             bgcolor: lightgreen,
             ontap: () {
-              print(emailEditingController.text.trim());
               print(passwordEditingController.text.trim());
               print(nameEditingController.text.trim());
               print(phoneEditingController.text.trim());
 
               authcontroller.signup(
-                  emailEditingController.text.trim(),
                   passwordEditingController.text.trim(),
                   nameEditingController.text.trim(),
                   phoneEditingController.text.trim());
@@ -200,7 +197,7 @@ class _SignupPageState extends State<SignupPage> {
                   height: 5,
                 ),
                 Text(
-                  emailEditingController.text,
+                  phoneEditingController.text,
                   style: Get.textTheme.bodyMedium!
                       .copyWith(fontWeight: FontWeight.normal),
                 ),
@@ -221,15 +218,14 @@ class _SignupPageState extends State<SignupPage> {
         mybutton(
             bgcolor: lightgreen,
             ontap: () async {
-              print(emailEditingController.text);
               print(passwordEditingController.text);
               print('button tapped');
 
               authcontroller.isDriver == true
                   ? await authcontroller.loginDriver(
-                      emailEditingController.text,
+                      phoneEditingController.text,
                       passwordEditingController.text)
-                  : await authcontroller.login(emailEditingController.text,
+                  : await authcontroller.login(phoneEditingController.text,
                       passwordEditingController.text);
             },
             cntr: Text('Continue', style: Get.textTheme.headlineLarge)),
@@ -258,7 +254,7 @@ class _SignupPageState extends State<SignupPage> {
       borderRadius: const BorderRadius.all(Radius.circular(20)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         mytextField(
-          controller: emailEditingController,
+          controller: phoneEditingController,
           label: 'Phone',
         ),
         const SizedBox(
@@ -373,7 +369,7 @@ class _SignupPageState extends State<SignupPage> {
           height: 20,
         ),
         mytextField(
-          controller: emailEditingController,
+          controller: phoneEditingController,
           label: 'Phone',
         ),
         const SizedBox(
@@ -421,13 +417,11 @@ class _SignupPageState extends State<SignupPage> {
         mybutton(
             bgcolor: lightgreen,
             ontap: () {
-              print(emailEditingController.text.trim());
               print(passwordEditingController.text.trim());
               print(nameEditingController.text.trim());
               print(carmodeleEditingController.text.trim());
 
               authcontroller.signupdriver(
-                  emailEditingController.text.trim(),
                   passwordEditingController.text.trim(),
                   nameEditingController.text.trim(),
                   carmodeleEditingController.text.trim());

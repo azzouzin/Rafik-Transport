@@ -64,19 +64,17 @@ class AuthServices {
   }
 
   Future<AppUser?> registerUser(
-    String email,
     String password,
     String name,
     String phone,
   ) async {
-    print('EMAIL = $email');
     print('password = $password');
     print('phone = $phone');
     print('name = $name');
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
+        email: phone,
         password: password,
       );
 
@@ -92,7 +90,6 @@ class AuthServices {
               .collection('users')
               .doc(user.uid)
               .set(AppUser(
-                      email: email,
                       name: name,
                       phone: phone,
                       uid: user.uid,
@@ -134,29 +131,27 @@ class AuthServices {
   }
 
   Future<Driver?> registerDriverWithEmailAndPassword(
-      {required String email,
-      required String password,
+      {required String password,
       required String carModele,
       required String name}) async {
-    print('EMAIL = $email');
     print('password = $password');
     print('phone = $carModele');
     print('name = $name');
-    try {
-      UserCredential userCredential =
+    //   try {
+    /*  UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+*/
+    // Registration successful, you can access the newly registered user from userCredential.user
+    //  User? user = userCredential.user;
 
-      // Registration successful, you can access the newly registered user from userCredential.user
-      User? user = userCredential.user;
-
-      if (user != null) {
-        // User registration successful, perform any additional tasks
-        print('User registration successful. User ID: ${user.uid}');
-
-        try {
+    // if (user != null) {
+    // User registration successful, perform any additional tasks
+    //  print('User registration successful. User ID: ${user.uid}');
+    ///*
+    /*   try {
           FirebaseFirestore.instance
               .collection('drivers')
               .doc(user.uid)
@@ -213,7 +208,7 @@ class AuthServices {
           backgroundColor: pink, colorText: white);
       print('Registration error: $e');
       return null;
-    }
+    }*/
   }
 
   /*Future<String> registerWithGoogle() async {

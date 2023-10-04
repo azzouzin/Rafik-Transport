@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:rafik/Controller/Services/auth_services.dart';
 import 'package:rafik/Controller/usercontoller.dart';
@@ -14,7 +15,7 @@ class Authcontroller extends GetxController {
   AppUser? profile;
   Driver? driverProfile;
   AuthServices authServices = AuthServices();
-
+  String? vid;
   Future<void> login(email, password) async {
     isloading = true;
     update();
@@ -23,7 +24,7 @@ class Authcontroller extends GetxController {
     if (resp != null) {
       profile = await authServices.getuserdata(resp);
       print(profile?.image);
-      print(profile?.email);
+
       print(profile?.name);
       print(profile?.phone);
       Get.snackbar('Happy to see you ', 'Take your time and chose your ride',
@@ -64,11 +65,43 @@ class Authcontroller extends GetxController {
     update();
   }
 
-  Future<void> signup(email, password, name, phone) async {
+  Future<String?> sendSms(String phone) async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: phone,
+      verificationCompleted: (PhoneAuthCredential credential) {
+        //   print(credential);
+        // await FirebaseAuth.instance.signInWithCredential(credential);
+        //   Get.toNamed("/homepage");
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        print("Faild");
+        print(e);
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        print("this is verifaction id $verificationId");
+        vid = verificationId;
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );
+    return vid;
+  }
+
+  Future<void> verifyPhoneNumber(String verificationId, String smsCode) async {
+    // Create a PhoneAuthCredential with the code
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationId, smsCode: smsCode);
+
+    // Sign the user in (or link) with the credential
+    var car = await FirebaseAuth.instance
+      ..signInWithCredential(credential);
+    print(car);
+  }
+
+  Future<void> signup(password, name, phone) async {
     isloading = true;
     update();
 
-    profile = await authServices.registerUser(email, password, name, phone);
+    profile = await authServices.registerUser(password, name, phone);
 
     isloading = false;
     update();
@@ -79,7 +112,7 @@ class Authcontroller extends GetxController {
     msg == 'ok'
         ? Get.offAllNamed('/signup')
         : Get.snackbar('Error', 'Error please try later');
-        msg=='ok' ? Get.offAll(ChosePage()):null;
+    msg == 'ok' ? Get.offAll(ChosePage()) : null;
   }
 
   void setAccountTypetoDriver() {
@@ -92,12 +125,12 @@ class Authcontroller extends GetxController {
     update();
   }
 
-  Future<void> signupdriver(email, password, name, carModele) async {
+  Future<void> signupdriver(password, name, carModele) async {
     print("Sign ip driver called");
     isloading = true;
     update();
     await authServices.registerDriverWithEmailAndPassword(
-        email: email, password: password, name: name, carModele: carModele);
+        password: password, name: name, carModele: carModele);
 
     isloading = false;
     update();
@@ -120,7 +153,7 @@ class Authcontroller extends GetxController {
     } else {
       profile = await authServices.getuserdata(profile!.uid!);
       print(profile!.name);
-      print(profile!.email);
+
       print(profile!.image);
       print(profile!.uid);
     }

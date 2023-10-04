@@ -74,8 +74,7 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 10),
               Text(authcontroller.profile!.name!,
                   style: Get.textTheme.titleLarge),
-              Text(authcontroller.profile!.email!,
-                  style: Theme.of(context).textTheme.bodyText2),
+
               const SizedBox(height: 20),
 
               /// -- BUTTON
