@@ -24,6 +24,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 4, 38, 102),
       body: SafeArea(
           child: Stack(
         children: [
@@ -32,9 +33,6 @@ class _SignupPageState extends State<SignupPage> {
                 horizontal: Get.width * 0.025, vertical: 10),
             width: Get.width,
             height: Get.height,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/walppr.jpg'), fit: BoxFit.cover)),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: title == 'Hi!'
@@ -80,7 +78,7 @@ class _SignupPageState extends State<SignupPage> {
             return controller.isloading == true
                 ? Center(
                     child: CircularProgressIndicator(
-                      color: lightgreen,
+                      color: maincolor,
                     ),
                   )
                 : Container();
@@ -142,14 +140,14 @@ class _SignupPageState extends State<SignupPage> {
           child: Text(
             'I agree to Terms of Service and Privacy Policy',
             style: Get.textTheme.bodyMedium!
-                .copyWith(fontSize: 14, color: lightgreen),
+                .copyWith(fontSize: 14, color: maincolor),
           ),
         ),
         const SizedBox(
           height: 20,
         ),
         mybutton(
-            bgcolor: lightgreen,
+            bgcolor: maincolor,
             ontap: () {
               print(passwordEditingController.text.trim());
               print(nameEditingController.text.trim());
@@ -216,7 +214,7 @@ class _SignupPageState extends State<SignupPage> {
           height: 20,
         ),
         mybutton(
-            bgcolor: lightgreen,
+            bgcolor: maincolor,
             ontap: () async {
               print(passwordEditingController.text);
               print('button tapped');
@@ -237,7 +235,7 @@ class _SignupPageState extends State<SignupPage> {
           child: Text(
             'Forget your password ?',
             style: Get.textTheme.bodyMedium!
-                .copyWith(fontSize: 14, color: lightgreen),
+                .copyWith(fontSize: 14, color: maincolor),
           ),
         ),
       ]),
@@ -246,10 +244,10 @@ class _SignupPageState extends State<SignupPage> {
 
   BlurryContainer hiwidget() {
     return BlurryContainer(
-      blur: 5,
+      blur: 1,
       width: Get.width * 0.95,
       elevation: 10,
-      color: Colors.white.withOpacity(0.15),
+      color: Colors.white,
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       borderRadius: const BorderRadius.all(Radius.circular(20)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -261,7 +259,7 @@ class _SignupPageState extends State<SignupPage> {
           height: 20,
         ),
         mybutton(
-            bgcolor: lightgreen,
+            bgcolor: maincolor,
             ontap: () async {
               setState(() {
                 title = 'Log In';
@@ -334,7 +332,7 @@ class _SignupPageState extends State<SignupPage> {
                 child: Text(
                   'Signup',
                   style: Get.textTheme.bodyMedium!
-                      .copyWith(fontSize: 14, color: lightgreen),
+                      .copyWith(fontSize: 14, color: maincolor),
                 ),
               ),
             ],
@@ -345,7 +343,7 @@ class _SignupPageState extends State<SignupPage> {
           child: Text(
             'Forget your password ?',
             style: Get.textTheme.bodyMedium!
-                .copyWith(fontSize: 14, color: lightgreen),
+                .copyWith(fontSize: 14, color: maincolor),
           ),
         ),
       ]),
@@ -408,14 +406,14 @@ class _SignupPageState extends State<SignupPage> {
           child: Text(
             'I agree to Terms of Service and Privacy Policy',
             style: Get.textTheme.bodyMedium!
-                .copyWith(fontSize: 14, color: lightgreen),
+                .copyWith(fontSize: 14, color: maincolorlighter),
           ),
         ),
         const SizedBox(
           height: 20,
         ),
         mybutton(
-            bgcolor: lightgreen,
+            bgcolor: maincolorlighter,
             ontap: () {
               print(passwordEditingController.text.trim());
               print(nameEditingController.text.trim());

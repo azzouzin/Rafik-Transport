@@ -13,10 +13,13 @@ Widget mytextField({
       decoration: BoxDecoration(
         border: ishaigh == true
             ? Border.all(
-                color: lightgreen,
+                color: maincolorlighter,
                 width: 2.0,
               )
-            : null,
+            : Border.all(
+                color: maincolor,
+                width: 0.5,
+              ),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Center(
@@ -50,7 +53,7 @@ Widget mytextField({
                 borderSide: BorderSide(color: Colors.transparent),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: lightgreen, width: 3),
+                borderSide: BorderSide(color: maincolorlighter, width: 3),
               ),
             ),
           ),
@@ -128,6 +131,7 @@ Widget mybutton({
       height: Get.height * 0.075,
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: BoxDecoration(
+          border: Border.all(width: 0.5),
           borderRadius: BorderRadius.circular(10),
           color: bgcolor == null ? Colors.white : bgcolor),
       child: Center(

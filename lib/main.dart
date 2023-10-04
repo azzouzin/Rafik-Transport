@@ -8,8 +8,6 @@ import 'package:rafik/Controller/Services/tokens_service.dart';
 import 'Controller/Bindings/homepagebindings.dart';
 import 'View/Authpages/chosepage.dart';
 import 'View/Authpages/signuppage.dart';
-import 'View/Authpages/terms.dart';
-import 'View/Authpages/verify_phone.dart';
 import 'View/Compenents/theme.dart';
 import 'View/Authpages/onboarding.dart';
 import 'View/HomePages/DriverPages/driverhome.dart';
@@ -35,8 +33,8 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: VerifyPhoneNumber(),
-      //initialRoute: '/',
+      // home: VerifyPhoneNumber(),
+      initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => const OneBoard(), middlewares: [
           LoginMiddle(isOpend),

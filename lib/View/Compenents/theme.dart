@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+Color maincolor = Color(0xff214c9b);
+
+Color maincolorlighter = Color.fromARGB(255, 82, 129, 218);
 final lightTheme = ThemeData(
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(
