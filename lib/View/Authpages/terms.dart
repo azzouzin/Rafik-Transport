@@ -35,7 +35,7 @@ class TermesPageState extends State<TermesPage> {
                         minimumSize:
                             Size(Get.size.width * 0.8, Get.size.height * 0.07)),
                     onPressed: () {
-                      Get.toNamed("/chose");
+                      Get.back();
                     },
                     child: Text("OK"))
               ],

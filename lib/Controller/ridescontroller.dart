@@ -21,9 +21,11 @@ class RidesController extends GetxController {
       seats: 4,
       totalSeats: 4,
       driver: Driver(
+          isDriver: true,
           uid: 'fHmX5f4GgaelG9bRR87viOotkak1',
           carmodele: 'picanto 2012',
           email: 'azzouz@gmail.com',
+          phone: "0562413935",
           name: 'azzouz',
           rating: '1',
           image:
@@ -37,8 +39,10 @@ class RidesController extends GetxController {
       seats: 4,
       totalSeats: 4,
       driver: Driver(
+          isDriver: true,
           email: 'azzouzmerouani@gmail.com',
           uid: '45881632jusckmcl',
+          phone: "0562413935",
           carmodele: 'Symbole',
           name: 'Akedkad',
           rating: '5.0',
@@ -53,6 +57,8 @@ class RidesController extends GetxController {
       seats: 4,
       totalSeats: 4,
       driver: Driver(
+          isDriver: true,
+          phone: "0562413935",
           email: 'azzouzmerouani@gmail.com',
           uid: '45881632jusckmcl',
           carmodele: 'picanto',
@@ -125,7 +131,7 @@ class RidesController extends GetxController {
     isloading = false;
     print(isloading);
     update();
-    Get.offAllNamed("/driverhome");
+    Get.toNamed("/driverhome");
   }
 
   void getrides() async {

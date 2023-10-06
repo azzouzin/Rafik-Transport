@@ -58,7 +58,7 @@ class DriverHomePageState extends State<DriverHomePage> {
               elevation: 5,
               centerTitle: false,
               title: Text(
-                "Welcome back ${authcontroller.driverProfile!.name}",
+                "Welcome back ",
                 style: Get.textTheme.headlineLarge,
                 // style: Get.textTheme.titleLarge!.copyWith(color: white),
               )),

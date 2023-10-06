@@ -7,6 +7,7 @@ class AppUser {
   String? phone;
   String? image;
   String? uid;
+  bool isDriver;
 
   AppUser({
     this.name,
@@ -14,6 +15,7 @@ class AppUser {
     this.phone,
     this.uid,
     required this.image,
+    required this.isDriver,
   });
 
   Map<String, dynamic> toMap() {
@@ -23,6 +25,7 @@ class AppUser {
       'phone': phone,
       'uid': uid,
       'image': image,
+      'isDriver': isDriver,
     };
   }
 
@@ -33,6 +36,7 @@ class AppUser {
       phone: map['phone'] != null ? map['phone'] as String : null,
       uid: map['uid'] != null ? map['uid'] as String : null,
       image: map['image'] != null ? map['image'] as String : null,
+      isDriver: map['isDriver'] as bool,
     );
   }
 

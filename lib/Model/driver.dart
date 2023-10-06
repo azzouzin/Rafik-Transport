@@ -4,10 +4,12 @@ import 'dart:convert';
 class Driver {
   final String name;
   final String email;
-  final String carmodele;
+  final String? carmodele;
   final String rating;
   final String image;
+  final String? phone;
   final String? uid;
+  final bool? isDriver;
 
   Driver({
     required this.email,
@@ -15,6 +17,8 @@ class Driver {
     required this.name,
     required this.carmodele,
     required this.rating,
+    required this.phone,
+    required this.isDriver,
     this.uid,
   });
 
@@ -25,18 +29,21 @@ class Driver {
       'rating': rating,
       'image': image,
       'email': email,
+      'isDriver': isDriver,
       'uid': uid,
     };
   }
 
   factory Driver.fromMap(Map<String, dynamic> map) {
     return Driver(
+      phone: map['phone'] as String?,
       name: map['name'] as String,
       carmodele: map['carmodele'] as String,
       rating: map['rating'] as String,
       image: map['image'] as String,
       email: map['email'] as String,
       uid: map['uid'] as String,
+      isDriver: map['isDriver'] as bool,
     );
   }
 

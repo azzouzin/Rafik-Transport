@@ -10,7 +10,7 @@ class Homebindings implements Bindings {
   void dependencies() {
     Get.put(LocationsController());
     Get.put(RidesController());
-    Get.put(Authcontroller());
+    Get.put(Authcontroller(), permanent: true);
     Get.put(UserContoller(), permanent: true);
   }
 }

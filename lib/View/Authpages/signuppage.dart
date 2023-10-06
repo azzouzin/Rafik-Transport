@@ -2,9 +2,11 @@ import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rafik/Controller/authcontroller.dart';
+import 'package:rafik/View/Authpages/OTP/register.dart';
 import 'package:rafik/View/Compenents/theme.dart';
 
 import '../Compenents/components.dart';
+import 'terms.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -14,11 +16,6 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  TextEditingController emailEditingController = TextEditingController();
-  TextEditingController passwordEditingController = TextEditingController();
-  TextEditingController phoneEditingController = TextEditingController();
-  TextEditingController nameEditingController = TextEditingController();
-  TextEditingController carmodeleEditingController = TextEditingController();
   Authcontroller authcontroller = Get.put(Authcontroller(), permanent: true);
 
   String title = 'Hi!';
@@ -111,21 +108,28 @@ class _SignupPageState extends State<SignupPage> {
           height: 20,
         ),
         mytextField(
-          controller: phoneEditingController,
+          controller: authcontroller.emailEditingController,
+          label: 'Email',
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        mytextField(
+          controller: authcontroller.phoneEditingController,
           label: 'phone',
         ),
         const SizedBox(
           height: 20,
         ),
         mytextField(
-          controller: nameEditingController,
+          controller: authcontroller.nameEditingController,
           label: 'Name',
         ),
         const SizedBox(
           height: 20,
         ),
         mytextField(
-          controller: passwordEditingController,
+          controller: authcontroller.passwordEditingController,
           label: 'Password',
         ),
         const SizedBox(
@@ -140,10 +144,15 @@ class _SignupPageState extends State<SignupPage> {
         ),
         InkWell(
           onTap: () {},
-          child: Text(
-            'I agree to Terms of Service and Privacy Policy',
-            style: Get.textTheme.bodyMedium!
-                .copyWith(fontSize: 14, color: lightgreen),
+          child: TextButton(
+            onPressed: () {
+              Get.to(TermesPage());
+            },
+            child: Text(
+              'I agree to Terms of Service and Privacy Policy',
+              style: Get.textTheme.bodyMedium!
+                  .copyWith(fontSize: 14, color: lightgreen),
+            ),
           ),
         ),
         const SizedBox(
@@ -152,16 +161,14 @@ class _SignupPageState extends State<SignupPage> {
         mybutton(
             bgcolor: lightgreen,
             ontap: () {
-              print(emailEditingController.text.trim());
-              print(passwordEditingController.text.trim());
-              print(nameEditingController.text.trim());
-              print(phoneEditingController.text.trim());
+              print(authcontroller.emailEditingController.text.trim());
+              print(authcontroller.passwordEditingController.text.trim());
+              print(authcontroller.nameEditingController.text.trim());
+              print(authcontroller.phoneEditingController.text.trim());
 
-              authcontroller.signup(
-                  emailEditingController.text.trim(),
-                  passwordEditingController.text.trim(),
-                  nameEditingController.text.trim(),
-                  phoneEditingController.text.trim());
+              Get.to(Register(
+                isDriver: false,
+              ));
               print('button tapped');
             },
             cntr:
@@ -200,7 +207,7 @@ class _SignupPageState extends State<SignupPage> {
                   height: 5,
                 ),
                 Text(
-                  emailEditingController.text,
+                  authcontroller.emailEditingController.text,
                   style: Get.textTheme.bodyMedium!
                       .copyWith(fontWeight: FontWeight.normal),
                 ),
@@ -212,7 +219,7 @@ class _SignupPageState extends State<SignupPage> {
           height: 20,
         ),
         mytextField(
-          controller: passwordEditingController,
+          controller: authcontroller.passwordEditingController,
           label: 'Password',
         ),
         const SizedBox(
@@ -221,16 +228,17 @@ class _SignupPageState extends State<SignupPage> {
         mybutton(
             bgcolor: lightgreen,
             ontap: () async {
-              print(emailEditingController.text);
-              print(passwordEditingController.text);
+              print(authcontroller.emailEditingController.text);
+              print(authcontroller.passwordEditingController.text);
               print('button tapped');
 
               authcontroller.isDriver == true
                   ? await authcontroller.loginDriver(
-                      emailEditingController.text,
-                      passwordEditingController.text)
-                  : await authcontroller.login(emailEditingController.text,
-                      passwordEditingController.text);
+                      authcontroller.emailEditingController.text,
+                      authcontroller.passwordEditingController.text)
+                  : await authcontroller.login(
+                      authcontroller.emailEditingController.text,
+                      authcontroller.passwordEditingController.text);
             },
             cntr: Text('Continue', style: Get.textTheme.headlineLarge)),
         const SizedBox(
@@ -258,8 +266,8 @@ class _SignupPageState extends State<SignupPage> {
       borderRadius: const BorderRadius.all(Radius.circular(20)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         mytextField(
-          controller: emailEditingController,
-          label: 'Phone',
+          controller: authcontroller.emailEditingController,
+          label: 'Email',
         ),
         const SizedBox(
           height: 20,
@@ -373,28 +381,35 @@ class _SignupPageState extends State<SignupPage> {
           height: 20,
         ),
         mytextField(
-          controller: emailEditingController,
+          controller: authcontroller.emailEditingController,
+          label: 'Email',
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        mytextField(
+          controller: authcontroller.phoneEditingController,
           label: 'Phone',
         ),
         const SizedBox(
           height: 20,
         ),
         mytextField(
-          controller: carmodeleEditingController,
+          controller: authcontroller.carmodeleEditingController,
           label: 'Car Modele',
         ),
         const SizedBox(
           height: 20,
         ),
         mytextField(
-          controller: nameEditingController,
+          controller: authcontroller.nameEditingController,
           label: 'Name',
         ),
         const SizedBox(
           height: 20,
         ),
         mytextField(
-          controller: passwordEditingController,
+          controller: authcontroller.passwordEditingController,
           label: 'Password',
         ),
         const SizedBox(
@@ -409,10 +424,15 @@ class _SignupPageState extends State<SignupPage> {
         ),
         InkWell(
           onTap: () {},
-          child: Text(
-            'I agree to Terms of Service and Privacy Policy',
-            style: Get.textTheme.bodyMedium!
-                .copyWith(fontSize: 14, color: lightgreen),
+          child: TextButton(
+            onPressed: () {
+              Get.to(TermesPage());
+            },
+            child: Text(
+              'I agree to Terms of Service and Privacy Policy',
+              style: Get.textTheme.bodyMedium!
+                  .copyWith(fontSize: 14, color: lightgreen),
+            ),
           ),
         ),
         const SizedBox(
@@ -421,16 +441,18 @@ class _SignupPageState extends State<SignupPage> {
         mybutton(
             bgcolor: lightgreen,
             ontap: () {
-              print(emailEditingController.text.trim());
-              print(passwordEditingController.text.trim());
-              print(nameEditingController.text.trim());
-              print(carmodeleEditingController.text.trim());
-
-              authcontroller.signupdriver(
+              print(authcontroller.emailEditingController.text.trim());
+              print(authcontroller.passwordEditingController.text.trim());
+              print(authcontroller.nameEditingController.text.trim());
+              print(authcontroller.carmodeleEditingController.text.trim());
+              Get.to(Register(
+                isDriver: true,
+              ));
+              /* authcontroller.signupdriver(
                   emailEditingController.text.trim(),
                   passwordEditingController.text.trim(),
                   nameEditingController.text.trim(),
-                  carmodeleEditingController.text.trim());
+                  carmodeleEditingController.text.trim());*/
               print('button tapped');
             },
             cntr:

@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rafik/Controller/Services/auth_services.dart';
 import 'package:rafik/Controller/usercontoller.dart';
 import 'package:rafik/Model/user.dart';
+import 'package:rafik/View/Authpages/signuppage.dart';
 import 'package:rafik/View/Compenents/theme.dart';
 
 import '../Model/driver.dart';
@@ -14,6 +16,29 @@ class Authcontroller extends GetxController {
   AppUser? profile;
   Driver? driverProfile;
   AuthServices authServices = AuthServices();
+  TextEditingController emailEditingController = TextEditingController();
+  TextEditingController passwordEditingController = TextEditingController();
+  TextEditingController phoneEditingController = TextEditingController();
+  TextEditingController nameEditingController = TextEditingController();
+  TextEditingController carmodeleEditingController = TextEditingController();
+
+  Future<Driver?> getDriverData(resp) async {
+    driverProfile = await authServices.getDriverData(resp);
+    print(profile?.image);
+    print(profile?.email);
+    print(profile?.name);
+    print(profile?.phone);
+    return driverProfile;
+  }
+
+  Future<AppUser?> getUserData(resp) async {
+    profile = await authServices.getuserdata(resp);
+    print(profile?.image);
+    print(profile?.email);
+    print(profile?.name);
+    print(profile?.phone);
+    return profile;
+  }
 
   Future<void> login(email, password) async {
     isloading = true;
@@ -79,7 +104,7 @@ class Authcontroller extends GetxController {
     msg == 'ok'
         ? Get.offAllNamed('/signup')
         : Get.snackbar('Error', 'Error please try later');
-        msg=='ok' ? Get.offAll(ChosePage()):null;
+    msg == 'ok' ? Get.offAll(ChosePage()) : null;
   }
 
   void setAccountTypetoDriver() {
@@ -92,14 +117,19 @@ class Authcontroller extends GetxController {
     update();
   }
 
-  Future<void> signupdriver(email, password, name, carModele) async {
+  Future<void> signupdriver(email, password, name, phone, carModele) async {
     print("Sign ip driver called");
     isloading = true;
     update();
-    await authServices.registerDriverWithEmailAndPassword(
-        email: email, password: password, name: name, carModele: carModele);
+    var resp = await authServices.registerDriverWithEmailAndPassword(
+        email: email,
+        password: password,
+        name: name,
+        carModele: carModele,
+        phone: phone);
 
     isloading = false;
+
     update();
   }
 

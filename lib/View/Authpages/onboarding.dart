@@ -279,5 +279,5 @@ class _OneBoardState extends State<OneBoard> {
 
 void _skip() {
   print('skip');
-  Get.to(TermesPage());
+  Get.to(ChosePage());
 }

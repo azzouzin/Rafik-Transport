@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:rafik/View/Authpages/signuppage.dart';
 
 import '../../Model/driver.dart';
 import '../../Model/user.dart';
@@ -92,6 +93,7 @@ class AuthServices {
               .collection('users')
               .doc(user.uid)
               .set(AppUser(
+                      isDriver: false,
                       email: email,
                       name: name,
                       phone: phone,
@@ -105,6 +107,7 @@ class AuthServices {
             Get.snackbar('Congartilations',
                 'Your Account was created you can log in now',
                 backgroundColor: green);
+            Get.toNamed("/signup");
             return appUser;
           }).catchError((e) {
             print('Creat user error : $e');
@@ -137,11 +140,13 @@ class AuthServices {
       {required String email,
       required String password,
       required String carModele,
-      required String name}) async {
+      required String name,
+      phone}) async {
     print('EMAIL = $email');
     print('password = $password');
     print('phone = $carModele');
     print('name = $name');
+    print('phone = $phone');
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -161,6 +166,8 @@ class AuthServices {
               .collection('drivers')
               .doc(user.uid)
               .set(Driver(
+                isDriver: true,
+                phone: phone,
                 email: email,
                 rating: '1',
                 name: name,
@@ -176,8 +183,11 @@ class AuthServices {
                 'Your Account was created you can log in now',
                 backgroundColor: green);
 
-            Get.to(DownloadContract());
+            //  Get.to(DownloadContract());
+            Get.offAll(SignupPage());
             return Driver(
+              isDriver: true,
+              phone: phone,
               email: email,
               rating: '1',
               name: name,

@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rafik/Controller/Middleware/middleware.dart';
 import 'package:rafik/Controller/Services/tokens_service.dart';
+import 'package:rafik/View/Authpages/splash_screen.dart';
 import 'Controller/Bindings/homepagebindings.dart';
 import 'View/Authpages/chosepage.dart';
 import 'View/Authpages/signuppage.dart';
-import 'View/Authpages/terms.dart';
 import 'View/Compenents/theme.dart';
 import 'View/Authpages/onboarding.dart';
 import 'View/HomePages/DriverPages/driverhome.dart';
@@ -35,10 +35,13 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       //  home: Example(title: 'HOHO'),
-      home: TermesPage(),
-      // initialRoute: '/',
+      // home: Welcome(),
+      initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => const OneBoard(), middlewares: [
+        GetPage(name: '/', page: () => const SplashScreen(), middlewares: [
+          LoginMiddle(isOpend),
+        ]),
+        GetPage(name: '/onboard', page: () => const OneBoard(), middlewares: [
           LoginMiddle(isOpend),
         ]),
         GetPage(name: '/signup', page: () => const SignupPage()),
