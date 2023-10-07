@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'dart:math';
+import "package:http/http.dart" as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rafik/Controller/authcontroller.dart';
+import 'package:rafik/View/Compenents/theme.dart';
 
 class Otp extends StatefulWidget {
   final String code;
@@ -108,11 +112,6 @@ class _OtpState extends State<Otp> {
                         onPressed: () {
                           if (c1.text + c2.text + c3.text + c4.text ==
                               widget.code) {
-                            Get.snackbar("Your Account is Verified ",
-                                "Welcome to rafik Community",
-                                backgroundColor: Colors.green,
-                                colorText: Colors.white);
-
                             widget.isDriver == true
                                 ? authcontroller.signupdriver(
                                     authcontroller.emailEditingController.text
@@ -128,15 +127,14 @@ class _OtpState extends State<Otp> {
                                         .carmodeleEditingController.text
                                         .trim())
                                 : authcontroller.signup(
-                                    authcontroller.emailEditingController.text
-                                        .trim(),
-                                    authcontroller
-                                        .passwordEditingController.text
-                                        .trim(),
-                                    authcontroller.nameEditingController.text
-                                        .trim(),
-                                    authcontroller.phoneEditingController.text
-                                        .trim());
+                                    email: authcontroller
+                                        .emailEditingController.text,
+                                    name: authcontroller
+                                        .nameEditingController.text,
+                                    password: authcontroller
+                                        .passwordEditingController.text,
+                                    phone: authcontroller
+                                        .phoneEditingController.text);
                           } else {
                             Get.snackbar("Your Account is not Verified ",
                                 "Wrong Code Please try again",
@@ -144,16 +142,11 @@ class _OtpState extends State<Otp> {
                                 colorText: Colors.white);
                           }
                         },
-                        style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.purple),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24.0),
-                            ),
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: white,
+                          backgroundColor: maincolor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
                         child: Padding(
@@ -183,14 +176,23 @@ class _OtpState extends State<Otp> {
               SizedBox(
                 height: 18,
               ),
-              Text(
-                "Resend New Code",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.purple,
+              InkWell(
+                onTap: () async {
+                  print("Resend Code tapped");
+                  String code = generateRandomString(4);
+                  await verifyPhone(
+                      authcontroller.phoneEditingController.text, code);
+                  Get.to(Otp(isDriver: widget.isDriver, code: code));
+                },
+                child: Text(
+                  "Resend New Code",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.purple,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
               ),
             ],
           ),
@@ -228,11 +230,52 @@ class _OtpState extends State<Otp> {
                 borderSide: BorderSide(width: 2, color: Colors.black12),
                 borderRadius: BorderRadius.circular(12)),
             focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2, color: Colors.purple),
+                borderSide: BorderSide(width: 2, color: maincolorlighter),
                 borderRadius: BorderRadius.circular(12)),
           ),
         ),
       ),
     );
+  }
+
+  String generateRandomString(int length) {
+    final random = Random();
+    int buffer = 0;
+
+    for (int i = 0; i < length; i++) {
+      buffer = random.nextInt(9000) + 1000;
+    }
+    print(buffer);
+    return buffer.toString();
+  }
+
+  Future<void> verifyPhone(String number, String code) async {
+    print(code);
+    number = "+213 $number";
+    var body = jsonEncode({
+      "messages": [
+        {
+          "destinations": [
+            {"to": number}
+          ],
+          "from": "Rafik Transport",
+          "text": "Your Verefication code from Azzouz $code"
+        }
+      ]
+    });
+    String apiKey =
+        "b5cd4bf881bf69bd5271fe714b9466b7-678bf070-36bc-4875-b1b8-eb5edaf937fe";
+    Map<String, String> headers = {
+      "Authorization": "App " + apiKey,
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    };
+
+    await http
+        .post(Uri.parse("https://xlr8x3.api.infobip.com/sms/2/text/advanced"),
+            headers: headers, body: body)
+        .then((value) {
+      print(value.body);
+    });
   }
 }

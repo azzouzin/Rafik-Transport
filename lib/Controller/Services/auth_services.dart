@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:rafik/View/Authpages/OTP/register.dart';
 import 'package:rafik/View/Authpages/signuppage.dart';
 
 import '../../Model/driver.dart';
@@ -15,6 +16,8 @@ class AuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<String?> login(String email, String password) async {
+    print(email);
+    print(password);
     try {
       await _auth.signInWithEmailAndPassword(
         email: email,
@@ -64,13 +67,13 @@ class AuthServices {
     }
   }
 
-  Future<AppUser?> registerUser(
-    String email,
-    String password,
-    String name,
-    String phone,
-  ) async {
-    print('EMAIL = $email');
+  Future<AppUser?> registerUser({
+    required String password,
+    required String name,
+    required String phone,
+    required String email,
+  }) async {
+    print('email = $email');
     print('password = $password');
     print('phone = $phone');
     print('name = $name');
@@ -93,8 +96,8 @@ class AuthServices {
               .collection('users')
               .doc(user.uid)
               .set(AppUser(
-                      isDriver: false,
                       email: email,
+                      isDriver: false,
                       name: name,
                       phone: phone,
                       uid: user.uid,
@@ -137,11 +140,11 @@ class AuthServices {
   }
 
   Future<Driver?> registerDriverWithEmailAndPassword(
-      {required String email,
-      required String password,
+      {required String password,
       required String carModele,
       required String name,
-      phone}) async {
+      phone,
+      email}) async {
     print('EMAIL = $email');
     print('password = $password');
     print('phone = $carModele');
@@ -174,7 +177,7 @@ class AuthServices {
                 carmodele: carModele,
                 uid: user.uid,
                 image:
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVlo0VrwoBPyWoC0zu6WWfVSDCVK1IL6u9dg_vvOW3PrX0W3ejhf5VE6GsgW4zi3-WAE0&usqp=CAU',
+                    'https://img.freepik.com/free-psd/cool-man-3d-cartoon-avatar-portrait_627936-37.jpg?w=740&t=st=1696675512~exp=1696676112~hmac=437b98ff2d389a5401edec3e26682ae4a973fbd248937490d25b66bed5700283',
               ).toMap())
               .then((value) async {
             print("Driver resgistred");
@@ -184,7 +187,7 @@ class AuthServices {
                 backgroundColor: green);
 
             //  Get.to(DownloadContract());
-            Get.offAll(SignupPage());
+
             return Driver(
               isDriver: true,
               phone: phone,
@@ -194,7 +197,7 @@ class AuthServices {
               carmodele: carModele,
               uid: user.uid,
               image:
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVlo0VrwoBPyWoC0zu6WWfVSDCVK1IL6u9dg_vvOW3PrX0W3ejhf5VE6GsgW4zi3-WAE0&usqp=CAU',
+                  'https://img.freepik.com/free-psd/cool-man-3d-cartoon-avatar-portrait_627936-37.jpg?w=740&t=st=1696675512~exp=1696676112~hmac=437b98ff2d389a5401edec3e26682ae4a973fbd248937490d25b66bed5700283',
             );
           }).catchError((e) {
             Get.snackbar('Error', e.toString(),
@@ -226,49 +229,6 @@ class AuthServices {
     }
   }
 
-  /*Future<String> registerWithGoogle() async {
-    try {
-      GoogleSignIn _googleSignIn = GoogleSignIn();
-      final GoogleSignInAccount? googleSignInAccount =
-          await _googleSignIn.signIn();
-
-      if (googleSignInAccount != null) {
-        final GoogleSignInAuthentication googleAuth =
-            await googleSignInAccount.authentication;
-
-        final AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken,
-        );
-
-        await _auth.signInWithCredential(credential);
-        // Handle successful registration
-
-        if (_googleSignIn.isSignedIn() == true) {
-          print(
-              "Registred in seccsecfully ${googleSignInAccount!.displayName}");
-          print("Registred in seccsecfully ${googleSignInAccount!.email}");
-          print("Registred in seccsecfully ${googleSignInAccount!.photoUrl}");
-
-          await creatuser(
-              AppUser(
-                  email: googleSignInAccount.email,
-                  image: googleSignInAccount.photoUrl,
-                  name: googleSignInAccount.displayName,
-                  phone: '+210 54823321',
-                  uid: googleSignInAccount.id),
-              false);
-        }
-        return 'ok';
-      } else {
-        return 'Unkown Error';
-      }
-    } catch (e) {
-      print('Thee is an ERROR = ' + e.toString());
-      return e.toString();
-    }
-  }
-*/
   Future<String> logout() async {
     try {
       await FirebaseAuth.instance.signOut();
@@ -322,25 +282,50 @@ class AuthServices {
 
     return driver;
   }
-/*
+}
 
-Future<bool> isuserexist() async {
-    DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .doc()
-        .get();
+  /*Future<String> registerWithGoogle() async {
+    try {
+      GoogleSignIn _googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
 
-    if (documentSnapshot.exists) {
-      // Access individual fields using documentSnapshot['field_name']
-      var isEmailV = documentSnapshot['isEmailV'];
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleAuth =
+            await googleSignInAccount.authentication;
 
-      // Do something with the retrieved data
-      print('The State of verified email is : $isEmailV');
-      return appUser;
-    } else {
-      print('Document does not exist.');
-      return null;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+
+        await _auth.signInWithCredential(credential);
+        // Handle successful registration
+
+        if (_googleSignIn.isSignedIn() == true) {
+          print(
+              "Registred in seccsecfully ${googleSignInAccount!.displayName}");
+          print("Registred in seccsecfully ${googleSignInAccount!.email}");
+          print("Registred in seccsecfully ${googleSignInAccount!.photoUrl}");
+
+          await creatuser(
+              AppUser(
+                  email: googleSignInAccount.email,
+                  image: googleSignInAccount.photoUrl,
+                  name: googleSignInAccount.displayName,
+                  phone: '+210 54823321',
+                  uid: googleSignInAccount.id),
+              false);
+        }
+        return 'ok';
+      } else {
+        return 'Unkown Error';
+      }
+    } catch (e) {
+      print('Thee is an ERROR = ' + e.toString());
+      return e.toString();
     }
   }
 */
-}
+ 
+

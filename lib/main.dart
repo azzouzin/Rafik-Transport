@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
       darkTheme: darkTheme,
       //  home: Example(title: 'HOHO'),
       // home: Welcome(),
+
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => const SplashScreen(), middlewares: [

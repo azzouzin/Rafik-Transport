@@ -16,9 +16,22 @@ class MessegePage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       child: ridesController.appusers.isEmpty
           ? Center(
-              child: Text(
-                'There is no one here',
-                style: Get.textTheme.headlineLarge,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: Get.width * 0.4,
+                    height: Get.height * 0.15,
+                    child: Image.asset(
+                      "assets/img6.jpg",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Text(
+                    " Ooops You Have No Chats now ",
+                    style: Get.theme.textTheme.bodySmall,
+                  ),
+                ],
               ),
             )
           : ListView.separated(
@@ -42,24 +55,28 @@ class MessegePage extends StatelessWidget {
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                         
-                             
-                               ClipOval(
-                                 child: SizedBox( width: 50,
-                                                             height: 50,
-                                   child: Image.network(
-                                    ridesController.appusers[i].image ??
-                                        'https://img.freepik.com/photos-gratuite/lapin-dessin-anime-mignon-genere-par-ai_23-2150288877.jpg?size=626&ext=jpg',
-                                    scale: 10,
-                                    fit: BoxFit.cover,
-                                                               ),
-                                 ),
-                               ),   Container(    width: 55,
+                            ClipOval(
+                              child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: Image.network(
+                                  ridesController.appusers[i].image ??
+                                      'https://img.freepik.com/photos-gratuite/lapin-dessin-anime-mignon-genere-par-ai_23-2150288877.jpg?size=626&ext=jpg',
+                                  scale: 10,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 55,
                               height: 55,
-                              decoration: BoxDecoration(border: Border.all(color: Colors.green,width: 2,style: BorderStyle.solid),shape: BoxShape.circle),
-                       )
-                       ,    
-                            
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.green,
+                                      width: 2,
+                                      style: BorderStyle.solid),
+                                  shape: BoxShape.circle),
+                            ),
                           ],
                         ),
                       )
@@ -71,9 +88,8 @@ class MessegePage extends StatelessWidget {
 
                       Text(
                         ridesController.appusers[i].name,
-                        style: Get.textTheme.headlineLarge!.copyWith(
-                          color: lightgreen
-                        ),
+                        style: Get.textTheme.headlineLarge!
+                            .copyWith(color: lightgreen),
                       ),
 
                       //    Expanded(child: Container()),

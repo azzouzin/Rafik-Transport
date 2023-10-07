@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rafik/View/Compenents/theme.dart';
 import '../../../Controller/authcontroller.dart';
-import 'driverlistpage.dart';
+import '../DriverPages/driverlistpage.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
@@ -74,8 +74,7 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 10),
               Text(authcontroller.profile!.name!,
                   style: Get.textTheme.titleLarge),
-              Text(authcontroller.profile!.email!,
-                  style: Theme.of(context).textTheme.bodyText2),
+
               const SizedBox(height: 20),
 
               /// -- BUTTON

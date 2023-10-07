@@ -73,7 +73,8 @@ class HomeContenent extends StatelessWidget {
               ]),
             ),
             //Locations
-            Padding(
+
+            /*        Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: Get.width * 0.01, vertical: 10),
                 child: SizedBox(
@@ -114,12 +115,14 @@ class HomeContenent extends StatelessWidget {
                         );
                       }),
                 )),
-            //Button
-            Center(
+        */ //Button
+            SizedBox(height: Get.height * 0.25),
+            Align(
+              alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: mybutton(
-                    bgcolor: lightgreen,
+                    bgcolor: maincolor,
                     ontap: () {
                       print("search clicked");
                       Get.toNamed('/ridespage');

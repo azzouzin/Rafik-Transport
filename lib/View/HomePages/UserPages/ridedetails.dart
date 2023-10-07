@@ -63,18 +63,23 @@ class RideDetails extends StatelessWidget {
                 const SizedBox(height: 10),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Iconsax.location,
-                        color: pink,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text('${ride.from} - ${ride.to}',
-                          style: Get.textTheme.bodyMedium),
-                    ],
+                  child: SizedBox(
+                    width: Get.width * 0.95,
+                    height: Get.height * 0.075,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Icon(
+                          Iconsax.location,
+                          color: pink,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text('${ride.from} - ${ride.to}',
+                            style: Get.textTheme.bodyMedium),
+                      ],
+                    ),
                   ),
                 ),
 

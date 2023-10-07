@@ -6,7 +6,11 @@ import 'package:rafik/Controller/authcontroller.dart';
 import 'package:rafik/Model/driver.dart';
 import 'package:rafik/Model/user.dart';
 import 'package:rafik/View/Authpages/onboarding.dart';
+import 'package:rafik/View/Compenents/theme.dart';
 import 'package:rafik/View/HomePages/UserPages/homepage.dart';
+import 'package:rive/rive.dart';
+
+import '../Compenents/components.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -27,15 +31,24 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: maincolor,
       body: Center(
           child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Image.asset("assets/logo.png"),
+          Loader(),
           ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  fixedSize: Size(Get.width * 0.95, Get.height * 0.075),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10))),
               onPressed: () {
                 Get.to(OneBoard());
               },
-              child: Text("!start"))
+              child: Text("!start",
+                  style:
+                      Get.theme.textTheme.titleLarge!.copyWith(color: white)))
         ],
       )),
     );
@@ -53,12 +66,12 @@ class _SplashScreenState extends State<SplashScreen> {
         } else {
           Get.toNamed("/driverhome");
         }
-      }
-
-      if (driver!.isDriver == true) {
-        Get.toNamed("/driverhome");
       } else {
-        Get.toNamed("/homepage");
+        if (driver!.isDriver == true) {
+          Get.toNamed("/driverhome");
+        } else {
+          Get.toNamed("/homepage");
+        }
       }
     } else {
       Future.delayed(Duration(seconds: 3));

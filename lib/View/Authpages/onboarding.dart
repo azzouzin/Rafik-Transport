@@ -71,7 +71,7 @@ class _OneBoardState extends State<OneBoard> {
       ),
     ),
     Container(
-      color: pink,
+      color: secondmaincolor,
       child: Center(
         child: Stack(
           children: [
@@ -84,14 +84,14 @@ class _OneBoardState extends State<OneBoard> {
                     padding: EdgeInsets.only(top: Get.size.height * 0.05),
                     child: SizedBox(
                         width: Get.width * 0.83,
-                        child: Image.asset('assets/taxi2.jpg')),
+                        child: Image.asset('assets/img2.jpg')),
                   ),
                   Padding(
                     padding: EdgeInsets.only(
                       top: Get.height * 0.04,
                     ),
                     child: const Text(
-                      'Rafik',
+                      'Sharikcar',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 25,
@@ -122,7 +122,7 @@ class _OneBoardState extends State<OneBoard> {
       ),
     ),
     Container(
-      color: green,
+      color: beage,
       child: Center(
         child: Stack(
           children: [
@@ -135,7 +135,7 @@ class _OneBoardState extends State<OneBoard> {
                     padding: EdgeInsets.only(top: Get.size.height * 0.05),
                     child: SizedBox(
                         width: Get.width * 0.83,
-                        child: Image.asset('assets/taxi3.jpg')),
+                        child: Image.asset('assets/img4.png')),
                   ),
                   Padding(
                     padding: EdgeInsets.only(

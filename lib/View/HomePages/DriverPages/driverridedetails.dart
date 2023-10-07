@@ -174,8 +174,8 @@ class DriverRideDetails extends StatelessWidget {
                                 ElevatedButton(
                                   child: Text("Confirm"),
                                   onPressed: () {
-                                    ridesController.deleteride(ride!.uid!);
-                                    Get.offAllNamed("/driverhome");
+                                    ridesController.deleteride(ride.uid!);
+                                    Get.toNamed("/driverhome");
                                   },
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.pink),

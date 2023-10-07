@@ -33,7 +33,7 @@ class _ChosePageState extends State<ChosePage> {
                   'Join Our Helthcare Network',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: lightgreen,
+                    color: maincolor,
                     fontWeight: FontWeight.bold,
                     fontSize: 25,
                   ),
@@ -49,7 +49,7 @@ class _ChosePageState extends State<ChosePage> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     letterSpacing: 1,
-                    color: Colors.lightGreen,
+                    color: maincolor.withOpacity(0.7),
                     fontWeight: FontWeight.w400,
                     fontSize: 20,
                   ),
@@ -67,9 +67,9 @@ class _ChosePageState extends State<ChosePage> {
                         Text(
                           "Driver",
                           style: TextStyle(
-                              color: _color[0] == lightgreen
+                              color: _color[0] == maincolor
                                   ? Colors.white
-                                  : lightgreen,
+                                  : maincolor,
                               fontWeight: FontWeight.w500,
                               fontSize: 15),
                         ),
@@ -80,7 +80,7 @@ class _ChosePageState extends State<ChosePage> {
                     onprsd: () {
                       setState(() {
                         _color[0] =
-                            _color[0] == lightgreen ? Colors.white : lightgreen;
+                            _color[0] == maincolor ? Colors.white : maincolor;
                         _color[1] = Colors.white;
                       });
                     },
@@ -94,13 +94,13 @@ class _ChosePageState extends State<ChosePage> {
                     center: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Expanded(child: Image.asset('assets/taxi.png')),
+                        Expanded(child: Image.asset('assets/img5.png')),
                         Text(
                           "User",
                           style: TextStyle(
-                              color: _color[1] == lightgreen
+                              color: _color[1] == maincolor
                                   ? Colors.white
-                                  : lightgreen,
+                                  : maincolor,
                               fontWeight: FontWeight.w500,
                               fontSize: 15),
                         ),
@@ -112,7 +112,7 @@ class _ChosePageState extends State<ChosePage> {
                       print("clicked");
                       setState(() {
                         _color[1] =
-                            _color[1] == lightgreen ? Colors.white : lightgreen;
+                            _color[1] == maincolor ? Colors.white : maincolor;
                         _color[0] = Colors.white;
                       });
                     },
@@ -130,10 +130,10 @@ class _ChosePageState extends State<ChosePage> {
                           fontWeight: FontWeight.bold,
                           fontSize: 20),
                     ),
-                    color: lightgreen,
+                    color: maincolor,
                     height: Get.height * 0.2,
                     onprsd: () {
-                      if (_color[1] == lightgreen) {
+                      if (_color[1] == maincolor) {
                         authcontroller.setAccountTypetoUser();
                       } else {
                         authcontroller.setAccountTypetoDriver();

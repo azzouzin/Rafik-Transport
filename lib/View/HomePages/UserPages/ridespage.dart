@@ -3,51 +3,57 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rafik/Controller/ridescontroller.dart';
+import 'package:rafik/View/Compenents/components.dart';
 import 'package:rafik/View/Compenents/theme.dart';
 import 'package:rafik/View/HomePages/UserPages/ridedetails.dart';
 import 'package:rafik/View/HomePages/UserPages/searchRidespage.dart';
 
 class RidesPage extends StatelessWidget {
   RidesPage({super.key});
-  RidesController ridesController = Get.find();
+  final RidesController ridesController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: white,
       appBar: AppBar(
+        backgroundColor: maincolor,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Book a ride',
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+          style: TextStyle(
+              fontWeight: FontWeight.w600, fontSize: 20, color: Colors.white),
         ),
         leading: InkWell(
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Iconsax.arrow_left,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         actions: [
           InkWell(
             onTap: () {
-              Get.to(SearchRides());
+              Get.to(const SearchRides());
             },
-            child: Icon(
-              Iconsax.search_normal,
-              color: Colors.black,
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Icon(
+                Iconsax.search_normal,
+                color: Colors.white,
+              ),
             ),
           ),
         ],
       ),
       body: GetBuilder<RidesController>(builder: (controller) {
         return controller.isloading == true
-            ? Center(
-                child: CircularProgressIndicator(),
+            ? const Center(
+                child: Loader(),
               )
             : ListView.separated(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
                   return ridedetails(index);
                 },
@@ -72,7 +78,7 @@ class RidesPage extends StatelessWidget {
             child: Row(
               children: [
                 SizedBox(
-                    width: Get.width * 0.4,
+                    width: Get.width * 0.3,
                     height: Get.height * 0.2,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
@@ -82,17 +88,27 @@ class RidesPage extends StatelessWidget {
                       ),
                     )),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(
-                        '${ridesController.searchedrides[index].from} - ${ridesController.searchedrides[index].to}',
-                        style: Get.textTheme.headlineLarge!.copyWith(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
+                      SizedBox(
+                        height: Get.height * 0.05,
+                        width: Get.width * 0.5,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            Text(
+                              '${ridesController.searchedrides[index].from} - ${ridesController.searchedrides[index].to}',
+                              style: Get.textTheme.headlineLarge!.copyWith(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Text(

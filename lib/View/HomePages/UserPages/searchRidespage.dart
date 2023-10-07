@@ -3,6 +3,7 @@ import 'package:firestore_search/firestore_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rafik/View/Compenents/components.dart';
 import 'package:rafik/View/Compenents/theme.dart';
 import 'package:rafik/View/HomePages/UserPages/ridedetails.dart';
 
@@ -14,21 +15,31 @@ class SearchRides extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FirestoreSearchScaffold(
-      appBarBackgroundColor: lightgreen,
+      appBarBackgroundColor: maincolor,
       // clearSearchButtonColor: white,
       // searchBackgroundColor: lightgreen,
       appBarTitle: 'Rides',
       appBarTitleColor: white,
-      clearSearchButtonColor: lightgreen,
+      clearSearchButtonColor: maincolor,
       showSearchIcon: true,
       searchIconColor: white,
       scaffoldBody: Container(
         width: Get.width,
         height: Get.height,
         child: Center(
-            child: Row(
+            child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+                width: Get.width * 0.9,
+                height: Get.height * 0.3,
+                child: Image.asset(
+                  "assets/img4.png",
+                  fit: BoxFit.cover,
+                )),
+            SizedBox(
+              height: 20,
+            ),
             Text('Search for Rides Near you '),
           ],
         )),
@@ -59,7 +70,12 @@ class SearchRides extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final Ride data = dataList[index];
 
-                  return ridedetails(data);
+                  return Column(
+                    children: [
+                      SizedBox(height: 10),
+                      ridedetails(data),
+                    ],
+                  );
                 }),
           );
         }
@@ -79,7 +95,7 @@ class SearchRides extends StatelessWidget {
           }
         }
         return const Center(
-          child: CircularProgressIndicator(),
+          child: Loader(),
         );
       },
     );
@@ -90,6 +106,7 @@ class SearchRides extends StatelessWidget {
       child: OpenContainer(
         closedBuilder: (_, openContainer) {
           return Container(
+            // margin: EdgeInsets.symmetric(vertical: 100),
             height: Get.height * 0.2,
             width: Get.width * 0.95,
             child: Row(
@@ -110,13 +127,21 @@ class SearchRides extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(
-                        '${ride.from} - ${ride.to}',
-                        style: Get.textTheme.headlineLarge!.copyWith(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      SizedBox(
+                        height: Get.height * 0.075,
+                        width: Get.width * 0.4,
+                        child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              Text(
+                                '${ride.from} - ${ride.to}',
+                                style: Get.textTheme.headlineLarge!.copyWith(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ]),
                       ),
                       Text(
                         'Date : ${ride.date}',

@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+Color maincolor = Color(0xff214c9b);
+Color secondmaincolor = Color(0xff95bbe8);
+Color maincolordarker = Color.fromARGB(255, 4, 38, 102);
+Color beage = Color.fromARGB(255, 181, 181, 181);
+
+Color maincolorlighter = Color.fromARGB(255, 82, 129, 218);
 final lightTheme = ThemeData(
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(
@@ -16,21 +22,21 @@ final lightTheme = ThemeData(
     fontFamily: GoogleFonts.poppins().fontFamily,
     // Add your light theme properties here
     // For example:
-    textTheme: const TextTheme(
+    textTheme: TextTheme(
       titleLarge: TextStyle(
           color: Color.fromARGB(255, 15, 15, 15),
           fontSize: 25,
           fontWeight: FontWeight.w900),
-      bodyLarge: TextStyle(
+      bodyLarge: GoogleFonts.poppins(
           color: Colors.black, fontSize: 20, fontWeight: FontWeight.w800),
-      bodySmall: TextStyle(
+      bodySmall: GoogleFonts.poppins(
           color: Colors.grey, fontSize: 13, fontWeight: FontWeight.w700),
-      headlineLarge: TextStyle(
+      headlineLarge: GoogleFonts.poppins(
           color: Colors.white, fontSize: 17, fontWeight: FontWeight.w900),
 
-      titleSmall: TextStyle(
+      titleSmall: GoogleFonts.poppins(
           color: Colors.black, fontSize: 15, fontWeight: FontWeight.w900),
-      bodyMedium: TextStyle(
+      bodyMedium: GoogleFonts.poppins(
           color: Colors.black, fontSize: 15, fontWeight: FontWeight.w900),
       // Add more properties to customize the TextTheme
     ),

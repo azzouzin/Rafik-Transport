@@ -9,9 +9,11 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rafik/Controller/Bindings/homepagebindings.dart';
+import 'package:rafik/Controller/authcontroller.dart';
+import 'package:rafik/View/Compenents/components.dart';
 
 import '../../../Controller/locationsController.dart';
-import '../Profile/profilepage.dart';
+import 'profilepage.dart';
 import 'homeContenet.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,15 +25,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   LocationsController locationsController = Get.find();
+  Authcontroller authcontroller = Get.find();
 
   final CameraPosition _initialPosition =
       const CameraPosition(target: LatLng(26.8206, 30.8025));
 
-  Completer<GoogleMapController> _controller = Completer();
+  // Completer<GoogleMapController> _controller = Completer();
 
   final Set<Marker> markers = Set();
 
-  void _onMapCreated(GoogleMapController controller) async {
+  /* void _onMapCreated(GoogleMapController controller) async {
     // _controller.complete(controller);
 
     Position position = await locationsController.getCurrentPosition();
@@ -39,7 +42,7 @@ class _HomePageState extends State<HomePage> {
     locationsController.pickupEditingController.text = await locationsController
         .getLocationName(position.latitude, position.longitude);
   }
-
+*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.w300, fontSize: Get.width * 0.06),
             ),
             Text(
-              'Azzouz Merouani!',
+              authcontroller.profile!.name!,
               overflow: TextOverflow.fade,
               style: TextStyle(
                   fontWeight: FontWeight.w500, fontSize: Get.width * 0.06),
@@ -86,19 +89,19 @@ class _HomePageState extends State<HomePage> {
       ),
       body: GetBuilder<LocationsController>(builder: (controller) {
         return controller.isloading == true
-            ? Center(child: CircularProgressIndicator())
+            ? Center(child: Loader())
             : SafeArea(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: Get.height * 0.5,
+                        height: Get.height * 0.3,
                         width: Get.width,
                         child: GoogleMap(
                           markers: Set<Marker>.of(markers),
                           myLocationEnabled: true,
                           myLocationButtonEnabled: true,
-                          onMapCreated: _onMapCreated,
+                          onMapCreated: (controller) async {},
                           initialCameraPosition: _initialPosition,
                           mapType: MapType.normal,
                           gestureRecognizers:

@@ -54,11 +54,11 @@ class DriverHomePageState extends State<DriverHomePage> {
           //extendBodyBehindAppBar: true,
           appBar: AppBar(
               automaticallyImplyLeading: false,
-              backgroundColor: lightgreen,
+              backgroundColor: maincolor,
               elevation: 5,
-              centerTitle: false,
+              centerTitle: true,
               title: Text(
-                "Welcome back ",
+                "Welcome back ${authcontroller.driverProfile!.name}",
                 style: Get.textTheme.headlineLarge,
                 // style: Get.textTheme.titleLarge!.copyWith(color: white),
               )),
@@ -95,7 +95,7 @@ class DriverHomePageState extends State<DriverHomePage> {
                     children: [
                       SizedBox(height: size.width * .014),
                       Icon(listOfIcons[index],
-                          size: size.width * .076, color: lightgreen),
+                          size: size.width * .076, color: maincolor),
                       AnimatedContainer(
                         duration: Duration(milliseconds: 1500),
                         curve: Curves.fastLinearToSlowEaseIn,
@@ -107,7 +107,7 @@ class DriverHomePageState extends State<DriverHomePage> {
                         width: size.width * .153,
                         height: index == currentIndex ? size.width * .014 : 0,
                         decoration: BoxDecoration(
-                          color: lightgreen,
+                          color: maincolor,
                           borderRadius: BorderRadius.vertical(
                             top: Radius.circular(20),
                           ),
@@ -120,18 +120,11 @@ class DriverHomePageState extends State<DriverHomePage> {
             ),
           ),
           body: Stack(children: [
-            GetBuilder<RidesController>(builder: (controller) {
-              return controller.isloading == true
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : Container();
-            }),
             bodycontenent(),
             GetBuilder<RidesController>(builder: (controller) {
               return controller.isloading == true
-                  ? Center(
-                      child: CircularProgressIndicator(),
+                  ? const Center(
+                      child: Loader(),
                     )
                   : Container();
             }),
@@ -156,7 +149,7 @@ class DriverHomePageState extends State<DriverHomePage> {
             padding: EdgeInsets.all(5),
             color: ridesController.searchedrides![index].seats == 0
                 ? const Color.fromARGB(255, 255, 0, 85)
-                : lightgreen,
+                : maincolor,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,7 +225,7 @@ class DriverHomePageState extends State<DriverHomePage> {
             padding: const EdgeInsets.all(5),
             color: ridesController.searchedrides![index].seats == 0
                 ? const Color.fromARGB(255, 255, 0, 85)
-                : lightgreen,
+                : maincolor,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -284,7 +277,7 @@ class DriverHomePageState extends State<DriverHomePage> {
             ),
           );
         },
-        openColor: Colors.lightGreen,
+        openColor: maincolorlighter,
         closedElevation: 5.0,
         closedShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -419,10 +412,11 @@ class DriverHomePageState extends State<DriverHomePage> {
     return GetBuilder<LocationsController>(builder: (locationsController) {
       return locationsController.isloading
           ? Center(
-              child: CircularProgressIndicator(),
+              child: Loader(),
             )
           : currentIndex == 0
               ? GetBuilder<RidesController>(builder: (ridecontrller) {
+                  print(ridecontrller.myRides.length);
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -434,19 +428,38 @@ class DriverHomePageState extends State<DriverHomePage> {
                       Container(
                         height: Get.height * 0.2,
                         width: Get.width,
-                        child: ListView.builder(
-                          itemCount: ridesController.searchedrides.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return (ridesController
-                                        .searchedrides[index].driver!.uid! ==
-                                    authcontroller.driverProfile!.uid!)
-                                ? Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ridedetails2(index))
-                                : Container();
-                          },
-                        ),
+                        child: ridesController.myRides.isEmpty
+                            ? Center(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width: Get.width * 0.4,
+                                      height: Get.height * 0.15,
+                                      child: Image.asset(
+                                        "assets/img6.jpg",
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Text(
+                                      " Ooops You Have No Rides now ",
+                                      style: Get.theme.textTheme.bodySmall,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : ListView.builder(
+                                itemCount: ridesController.myRides.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return (ridesController
+                                              .myRides[index].driver!.uid! ==
+                                          authcontroller.driverProfile!.uid!)
+                                      ? Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: ridedetails2(index))
+                                      : Container();
+                                },
+                              ),
                       ),
                       const Padding(
                         padding:

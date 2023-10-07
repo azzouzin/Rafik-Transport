@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,16 +49,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAx-wN_s2v-7b9eUH5gW5bdnkyXiVEWc38',
-    appId: '1:163687543330:web:d6c25e91aa4ab10915507b',
-    messagingSenderId: '163687543330',
-    projectId: 'rafikfire-4600d',
-    authDomain: 'rafikfire-4600d.firebaseapp.com',
-    storageBucket: 'rafikfire-4600d.appspot.com',
-    measurementId: 'G-7KXF2209LX',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCrdXqiZ60faInGYojfe2yoV6VD6Xh-JR0',
     appId: '1:163687543330:android:73b998370347d88a15507b',
@@ -62,22 +58,13 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCVUbwGPcazYydaimMZ39MGHlZ9k4T60p8',
+    apiKey: 'AIzaSyCHCFC5kqc0VYQqWGC7Bj7Tc3MeDaepDXc',
     appId: '1:163687543330:ios:0a5c95edc9ba37b115507b',
     messagingSenderId: '163687543330',
     projectId: 'rafikfire-4600d',
     storageBucket: 'rafikfire-4600d.appspot.com',
+    androidClientId: '163687543330-cos7u95eanef45v6v84gfu2adbt8urcr.apps.googleusercontent.com',
     iosClientId: '163687543330-s0a4unolfb7ogqmehpa9r7b67rbh9mdb.apps.googleusercontent.com',
     iosBundleId: 'com.example.rafik',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCVUbwGPcazYydaimMZ39MGHlZ9k4T60p8',
-    appId: '1:163687543330:ios:8bfe5da5c5833e3215507b',
-    messagingSenderId: '163687543330',
-    projectId: 'rafikfire-4600d',
-    storageBucket: 'rafikfire-4600d.appspot.com',
-    iosClientId: '163687543330-esh4fdqitdq3mnm4envf27iksgrulspd.apps.googleusercontent.com',
-    iosBundleId: 'com.example.rafik.RunnerTests',
   );
 }

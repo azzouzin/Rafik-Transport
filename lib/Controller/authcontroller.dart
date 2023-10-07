@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rafik/Controller/Services/auth_services.dart';
@@ -5,8 +6,10 @@ import 'package:rafik/Controller/usercontoller.dart';
 import 'package:rafik/Model/user.dart';
 import 'package:rafik/View/Authpages/signuppage.dart';
 import 'package:rafik/View/Compenents/theme.dart';
+import 'package:rafik/View/HomePages/DriverPages/driverhome.dart';
 
 import '../Model/driver.dart';
+import '../View/Authpages/OTP/register.dart';
 import '../View/Authpages/chosepage.dart';
 
 class Authcontroller extends GetxController {
@@ -15,6 +18,7 @@ class Authcontroller extends GetxController {
   bool photoIsLoading = false;
   AppUser? profile;
   Driver? driverProfile;
+  String? vid;
   AuthServices authServices = AuthServices();
   TextEditingController emailEditingController = TextEditingController();
   TextEditingController passwordEditingController = TextEditingController();
@@ -48,7 +52,7 @@ class Authcontroller extends GetxController {
     if (resp != null) {
       profile = await authServices.getuserdata(resp);
       print(profile?.image);
-      print(profile?.email);
+
       print(profile?.name);
       print(profile?.phone);
       Get.snackbar('Happy to see you ', 'Take your time and chose your ride',
@@ -64,6 +68,8 @@ class Authcontroller extends GetxController {
   }
 
   Future<void> loginDriver(email, password) async {
+    print("From Controller $email");
+    print(password);
     isloading = true;
     update();
     String? resp = await authServices.login(email, password);
@@ -89,11 +95,44 @@ class Authcontroller extends GetxController {
     update();
   }
 
-  Future<void> signup(email, password, name, phone) async {
+  Future<String?> sendSms(String phone) async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: phone,
+      verificationCompleted: (PhoneAuthCredential credential) {
+        //   print(credential);
+        // await FirebaseAuth.instance.signInWithCredential(credential);
+        //   Get.toNamed("/homepage");
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        print("Faild");
+        print(e);
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        print("this is verifaction id $verificationId");
+        vid = verificationId;
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );
+    return vid;
+  }
+
+  Future<void> verifyPhoneNumber(String verificationId, String smsCode) async {
+    // Create a PhoneAuthCredential with the code
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationId, smsCode: smsCode);
+
+    // Sign the user in (or link) with the credential
+    var car = await FirebaseAuth.instance
+      ..signInWithCredential(credential);
+    print(car);
+  }
+
+  Future<void> signup({password, name, phone, email}) async {
     isloading = true;
     update();
 
-    profile = await authServices.registerUser(email, password, name, phone);
+    profile = await authServices.registerUser(
+        password: password, name: name, phone: phone, email: email);
 
     isloading = false;
     update();
@@ -129,7 +168,9 @@ class Authcontroller extends GetxController {
         phone: phone);
 
     isloading = false;
-
+    Get.snackbar("Your Account is Verified ", "Welcome to rafik Community",
+        backgroundColor: Colors.green, colorText: Colors.white);
+    Get.offAllNamed("/signup");
     update();
   }
 
@@ -150,7 +191,7 @@ class Authcontroller extends GetxController {
     } else {
       profile = await authServices.getuserdata(profile!.uid!);
       print(profile!.name);
-      print(profile!.email);
+
       print(profile!.image);
       print(profile!.uid);
     }
