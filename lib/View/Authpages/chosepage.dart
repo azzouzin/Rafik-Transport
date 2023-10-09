@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rafik/Controller/authcontroller.dart';
-import 'package:rafik/View/Authpages/onboarding.dart';
+import 'package:rafik/Helpers/translate_helper.dart';
 import 'package:rafik/View/Authpages/signuppage.dart';
 import 'package:rafik/View/Compenents/theme.dart';
 
@@ -30,7 +30,7 @@ class _ChosePageState extends State<ChosePage> {
                     left: Get.size.width * 0.2,
                     right: Get.size.width * 0.2),
                 child: Text(
-                  'Join Our Helthcare Network',
+                  getStatment("Welcome back"),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: maincolor,
@@ -45,7 +45,8 @@ class _ChosePageState extends State<ChosePage> {
                     left: Get.size.width * 0.05,
                     right: Get.size.width * 0.05),
                 child: Text(
-                  'Register as a driver and make extra incom with us or as user and go whenever you want whetever you want ',
+                  getStatment(
+                      "Register with us rither as a driver or as a passenger and enjoy a completely new experience with Sharikcar"),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     letterSpacing: 1,
@@ -65,7 +66,7 @@ class _ChosePageState extends State<ChosePage> {
                       children: [
                         Expanded(child: Image.asset('assets/taxi.png')),
                         Text(
-                          "Driver",
+                          getStatment("Driver"),
                           style: TextStyle(
                               color: _color[0] == maincolor
                                   ? Colors.white
@@ -96,7 +97,7 @@ class _ChosePageState extends State<ChosePage> {
                       children: [
                         Expanded(child: Image.asset('assets/img5.png')),
                         Text(
-                          "User",
+                          getStatment("User"),
                           style: TextStyle(
                               color: _color[1] == maincolor
                                   ? Colors.white
@@ -124,7 +125,7 @@ class _ChosePageState extends State<ChosePage> {
                     bottom: Get.size.height * 0.04),
                 child: myButton(
                     center: Text(
-                      'Next',
+                      getStatment('Next'),
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

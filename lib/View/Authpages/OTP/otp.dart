@@ -4,6 +4,7 @@ import "package:http/http.dart" as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rafik/Controller/authcontroller.dart';
+import 'package:rafik/Helpers/translate_helper.dart';
 import 'package:rafik/View/Compenents/theme.dart';
 
 class Otp extends StatefulWidget {
@@ -49,7 +50,7 @@ class _OtpState extends State<Otp> {
                 width: 200,
                 height: 200,
                 decoration: BoxDecoration(
-                  color: Colors.deepPurple.shade50,
+                  color: maincolor,
                   shape: BoxShape.circle,
                 ),
                 child: Image.asset(
@@ -60,8 +61,8 @@ class _OtpState extends State<Otp> {
                 height: 24,
               ),
               Text(
-                'Verification',
-                style: TextStyle(
+                getStatment("verifaction"),
+                style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 ),
@@ -70,7 +71,7 @@ class _OtpState extends State<Otp> {
                 height: 10,
               ),
               Text(
-                "Enter your OTP code number",
+                getStatment("Enter your OTP code number"),
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -152,7 +153,7 @@ class _OtpState extends State<Otp> {
                         child: Padding(
                           padding: EdgeInsets.all(14.0),
                           child: Text(
-                            'Verify',
+                            getStatment("verifaction"),
                             style: TextStyle(fontSize: 16),
                           ),
                         ),
@@ -165,7 +166,7 @@ class _OtpState extends State<Otp> {
                 height: 18,
               ),
               Text(
-                "Didn't you receive any code?",
+                getStatment("Didn't you receive any code?"),
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,

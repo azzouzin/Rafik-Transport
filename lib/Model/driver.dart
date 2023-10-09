@@ -43,7 +43,7 @@ class Driver {
       image: map['image'] as String,
       email: map['email'] as String,
       uid: map['uid'] as String,
-      isDriver: map['isDriver'] as bool,
+      isDriver: map['isDriver'] as bool?,
     );
   }
 

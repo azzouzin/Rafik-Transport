@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:rafik/Helpers/translate_helper.dart';
 import 'package:rafik/View/Compenents/components.dart';
 import 'package:rafik/View/Compenents/theme.dart';
 
@@ -23,7 +24,7 @@ class HomeContenent extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: Get.width * 0.05, vertical: 10),
-              child: Text('Wher do you want to go ?',
+              child: Text(getStatment("where do you want to go"),
                   style: Get.textTheme.titleLarge),
             ),
 
@@ -128,7 +129,7 @@ class HomeContenent extends StatelessWidget {
                       Get.toNamed('/ridespage');
                     },
                     cntr: Text(
-                      "Search for rides",
+                      getStatment("Search for rides"),
                       style: Get.textTheme.headlineLarge,
                     )),
               ),

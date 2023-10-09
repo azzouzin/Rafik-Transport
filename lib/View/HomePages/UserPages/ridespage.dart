@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rafik/Controller/ridescontroller.dart';
+import 'package:rafik/Helpers/translate_helper.dart';
 import 'package:rafik/View/Compenents/components.dart';
 import 'package:rafik/View/Compenents/theme.dart';
 import 'package:rafik/View/HomePages/UserPages/ridedetails.dart';
@@ -18,8 +19,8 @@ class RidesPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: maincolor,
         centerTitle: true,
-        title: const Text(
-          'Book a ride',
+        title: Text(
+          getStatment("Book a ride"),
           style: TextStyle(
               fontWeight: FontWeight.w600, fontSize: 20, color: Colors.white),
         ),
@@ -112,7 +113,7 @@ class RidesPage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Date : ${ridesController.searchedrides[index].date}',
+                        "${getStatment('Date')}: ${ridesController.searchedrides[index].date}",
                         style: Get.textTheme.headlineLarge!.copyWith(
                           color: Colors.black,
                           fontSize: 15,
@@ -120,7 +121,7 @@ class RidesPage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Price : ${ridesController.searchedrides[index].price} DA',
+                        '${getStatment('Price')}: ${ridesController.searchedrides[index].price} DA',
                         style: Get.textTheme.headlineLarge!.copyWith(
                           color: Colors.black,
                           fontSize: 15,
@@ -128,7 +129,7 @@ class RidesPage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Seats availble : ${ridesController.searchedrides[index].seats}',
+                        '${getStatment('Seats available')} : ${ridesController.searchedrides[index].seats}',
                         style: Get.textTheme.headlineLarge!.copyWith(
                           color: Colors.black,
                           fontSize: 15,
@@ -136,7 +137,7 @@ class RidesPage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Rating : ${ridesController.searchedrides[index].driver!.rating}',
+                        '${getStatment('Rating')} : ${ridesController.searchedrides[index].driver!.rating}',
                         style: Get.textTheme.headlineLarge!.copyWith(
                           color: Colors.black,
                           fontSize: 15,

@@ -6,6 +6,7 @@ import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rafik/Controller/authcontroller.dart';
+import 'package:rafik/Helpers/translate_helper.dart';
 import 'package:rafik/View/Authpages/OTP/otp.dart';
 import 'package:rafik/View/Authpages/OTP/register.dart';
 import 'package:rafik/View/Authpages/terms.dart';
@@ -23,7 +24,7 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   Authcontroller authcontroller = Get.put(Authcontroller(), permanent: true);
 
-  String title = 'Hi!';
+  String title = getStatment("Hello!");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +39,7 @@ class _SignupPageState extends State<SignupPage> {
             height: Get.height,
             child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: title == 'Hi!'
+                mainAxisAlignment: title == getStatment("Hello!")
                     ? MainAxisAlignment.end
                     : MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +52,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     onPressed: () {
                       setState(() {
-                        title = 'Hi!';
+                        title = getStatment("Hello!");
                       });
                     },
                   ),
@@ -87,9 +88,9 @@ class _SignupPageState extends State<SignupPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  title == 'Hi!'
+                  title == getStatment("Hello!")
                       ? hiwidget()
-                      : title == 'Log In'
+                      : title == getStatment("Log in")
                           ? loginWidget()
                           : authcontroller.isDriver == true
                               ? signupdriver()
@@ -116,7 +117,8 @@ class _SignupPageState extends State<SignupPage> {
       borderRadius: const BorderRadius.all(Radius.circular(20)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
-          "Looks Like You Dont Have an account Let's creat account for you",
+          getStatment(
+              "It seems that you don't have an account, let us help you to create one"),
           style: Get.textTheme.bodyLarge!.copyWith(color: Colors.black),
         ),
         const SizedBox(
@@ -127,28 +129,28 @@ class _SignupPageState extends State<SignupPage> {
         ),
         mytextField(
           controller: authcontroller.emailEditingController,
-          label: 'Email',
+          label: getStatment("Email"),
         ),
         const SizedBox(
           height: 20,
         ),
         mytextField(
           controller: authcontroller.phoneEditingController,
-          label: 'phone',
+          label: getStatment("Phone number"),
         ),
         const SizedBox(
           height: 20,
         ),
         mytextField(
           controller: authcontroller.nameEditingController,
-          label: 'Name',
+          label: getStatment("Name"),
         ),
         const SizedBox(
           height: 20,
         ),
         mytextField(
           controller: authcontroller.passwordEditingController,
-          label: 'Password',
+          label: getStatment("Password"),
         ),
         const SizedBox(
           height: 20,
@@ -157,7 +159,8 @@ class _SignupPageState extends State<SignupPage> {
           height: 20,
         ),
         Text(
-          'By Selecting Agree and Continue below,',
+          getStatment(
+              "By selecting agree and continue below, i agree to terms of service and privacy policy"),
           style: Get.textTheme.bodyLarge!.copyWith(color: Colors.black),
         ),
         InkWell(
@@ -186,7 +189,7 @@ class _SignupPageState extends State<SignupPage> {
               Get.to(Otp(code: code, isDriver: false));
             },
             cntr:
-                Text('Agree and Continue', style: Get.textTheme.headlineLarge)),
+                Text(getStatment("Next"), style: Get.textTheme.headlineLarge)),
       ]),
     );
   }
@@ -235,7 +238,7 @@ class _SignupPageState extends State<SignupPage> {
         ),
         mytextField(
           controller: authcontroller.passwordEditingController,
-          label: 'Password',
+          label: getStatment("Password"),
         ),
         const SizedBox(
           height: 20,
@@ -253,7 +256,8 @@ class _SignupPageState extends State<SignupPage> {
                       authcontroller.emailEditingController.text,
                       authcontroller.passwordEditingController.text);
             },
-            cntr: Text('Continue', style: Get.textTheme.headlineLarge)),
+            cntr: Text(getStatment("Continue"),
+                style: Get.textTheme.headlineLarge)),
         const SizedBox(
           height: 20,
         ),
@@ -280,7 +284,7 @@ class _SignupPageState extends State<SignupPage> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         mytextField(
           controller: authcontroller.emailEditingController,
-          label: 'Email',
+          label: getStatment("Email"),
         ),
         const SizedBox(
           height: 20,
@@ -289,12 +293,13 @@ class _SignupPageState extends State<SignupPage> {
             bgcolor: maincolor,
             ontap: () async {
               setState(() {
-                title = 'Log In';
+                title = getStatment("Log in");
               });
               print(title);
               print('button tapped');
             },
-            cntr: Text('Continue', style: Get.textTheme.headlineLarge)),
+            cntr: Text(getStatment("Log in"),
+                style: Get.textTheme.headlineLarge)),
         const SizedBox(
           height: 20,
         ),
@@ -395,35 +400,35 @@ class _SignupPageState extends State<SignupPage> {
         ),
         mytextField(
           controller: authcontroller.emailEditingController,
-          label: 'Email',
+          label: getStatment("Email"),
         ),
         const SizedBox(
           height: 20,
         ),
         mytextField(
           controller: authcontroller.phoneEditingController,
-          label: 'Phone',
+          label: getStatment("Phone number"),
         ),
         const SizedBox(
           height: 20,
         ),
         mytextField(
           controller: authcontroller.carmodeleEditingController,
-          label: 'Car Modele',
+          label: getStatment("Car Modele"),
         ),
         const SizedBox(
           height: 20,
         ),
         mytextField(
           controller: authcontroller.nameEditingController,
-          label: 'Name',
+          label: getStatment("Name"),
         ),
         const SizedBox(
           height: 20,
         ),
         mytextField(
           controller: authcontroller.passwordEditingController,
-          label: 'Password',
+          label: getStatment("Password"),
         ),
         const SizedBox(
           height: 20,
@@ -462,7 +467,7 @@ class _SignupPageState extends State<SignupPage> {
               print('button tapped');
             },
             cntr:
-                Text('Agree and Continue', style: Get.textTheme.headlineLarge)),
+                Text(getStatment("Next"), style: Get.textTheme.headlineLarge)),
       ]),
     );
   }

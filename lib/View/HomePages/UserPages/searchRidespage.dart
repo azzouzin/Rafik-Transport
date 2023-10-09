@@ -3,6 +3,7 @@ import 'package:firestore_search/firestore_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rafik/Helpers/translate_helper.dart';
 import 'package:rafik/View/Compenents/components.dart';
 import 'package:rafik/View/Compenents/theme.dart';
 import 'package:rafik/View/HomePages/UserPages/ridedetails.dart';
@@ -18,7 +19,7 @@ class SearchRides extends StatelessWidget {
       appBarBackgroundColor: maincolor,
       // clearSearchButtonColor: white,
       // searchBackgroundColor: lightgreen,
-      appBarTitle: 'Rides',
+      appBarTitle: getStatment('Ride'),
       appBarTitleColor: white,
       clearSearchButtonColor: maincolor,
       showSearchIcon: true,
@@ -37,10 +38,8 @@ class SearchRides extends StatelessWidget {
                   "assets/img4.png",
                   fit: BoxFit.cover,
                 )),
-            SizedBox(
-              height: 20,
-            ),
-            Text('Search for Rides Near you '),
+            const SizedBox(height: 20),
+            Text(getStatment("Search for rides")),
           ],
         )),
       ),

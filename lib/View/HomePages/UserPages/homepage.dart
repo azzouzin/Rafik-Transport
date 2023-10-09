@@ -10,6 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rafik/Controller/Bindings/homepagebindings.dart';
 import 'package:rafik/Controller/authcontroller.dart';
+import 'package:rafik/Helpers/translate_helper.dart';
 import 'package:rafik/View/Compenents/components.dart';
 
 import '../../../Controller/locationsController.dart';
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> {
         title: Row(
           children: [
             Text(
-              'Hello,',
+              getStatment("Hello!"),
               style: TextStyle(
                   fontWeight: FontWeight.w300, fontSize: Get.width * 0.06),
             ),

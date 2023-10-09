@@ -8,6 +8,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:rafik/Controller/ridescontroller.dart';
 
 import '../../../Controller/locationsController.dart';
+import '../../../Helpers/translate_helper.dart';
 import '../../../Model/ride.dart';
 import '../../Compenents/components.dart';
 import '../../Compenents/theme.dart';
@@ -40,8 +41,8 @@ class RideDetails extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(
-            'Book a ride',
+          title: Text(
+            getStatment("Book a ride"),
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
           ),
           leading: IconButton(
@@ -114,14 +115,16 @@ class RideDetails extends StatelessWidget {
                               left: Get.width * 0.05,
                               right: Get.width * 0.05,
                               top: 15),
-                          child: Text('Seats Availble : ${ride.seats}',
+                          child: Text(
+                              '${getStatment('Seats available')} : ${ride.seats}',
                               style: Get.textTheme.bodyMedium),
                         ),
                         //Locations
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: Get.width * 0.05, vertical: 10),
-                          child: Text('Ride Price : ${ride.price} DA',
+                          child: Text(
+                              '${getStatment('Ride price')} : ${ride.price} DA',
                               style: Get.textTheme.bodyLarge),
                         ),
                         Padding(
@@ -169,7 +172,7 @@ class RideDetails extends StatelessWidget {
                       showbottom(context);
                     },
                     cntr: Text(
-                      "Pay",
+                      getStatment('Pay'),
                       style: Get.textTheme.headlineLarge,
                     ),
                   ),
@@ -179,7 +182,7 @@ class RideDetails extends StatelessWidget {
                 ),
                 Center(
                   child: mybutton(
-                    bgcolor: lightgreen,
+                    bgcolor: maincolor,
                     ontap: () {
                       print(ride.driver!.uid);
 
@@ -190,7 +193,7 @@ class RideDetails extends StatelessWidget {
                       ;
                     },
                     cntr: Text(
-                      "Book now",
+                      getStatment("Book a ride"),
                       style: Get.textTheme.headlineLarge,
                     ),
                   ),
@@ -230,7 +233,7 @@ class RideDetails extends StatelessWidget {
   void showbottom(context) {
     showModalBottomSheet(
         backgroundColor: white,
-        barrierColor: lightgreen.withOpacity(0.2),
+        barrierColor: maincolor.withOpacity(0.2),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
           topLeft: Radius.circular(50),
@@ -252,12 +255,13 @@ class RideDetails extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'chose payment method',
+                    getStatment("Choose payment method"),
                     style: Get.textTheme.titleLarge!.copyWith(fontSize: 20),
                   ),
                   SizedBox(height: 20),
                   Text(
-                    'chose payment method you can pay hand to hand or even with baridi mob or visa card please select on choice and one only .',
+                    getStatment(
+                        "You can pay hand to hand or with baridi mob, please select a choice"),
                     style: Get.textTheme.titleLarge!
                         .copyWith(fontSize: 15, color: Colors.grey),
                   ),
@@ -276,10 +280,10 @@ class RideDetails extends StatelessWidget {
                         padding: EdgeInsets.all(15),
                         decoration: BoxDecoration(
                             color: controller.hendPayment == true
-                                ? lightgreen
+                                ? maincolor
                                 : null,
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(width: 1, color: lightgreen)),
+                            border: Border.all(width: 1, color: maincolor)),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -296,14 +300,14 @@ class RideDetails extends StatelessWidget {
                                   width: 15,
                                 ),
                                 Text(
-                                  'Hand to hand',
+                                  getStatment("hand to hand"),
                                   style: Get.textTheme.titleLarge!
                                       .copyWith(fontSize: 15),
                                 ),
                               ],
                             ),
                             Text(
-                              'pay when you meet with the driver',
+                              getStatment("Pay Driver"),
                               style: Get.textTheme.titleLarge!.copyWith(
                                 fontSize: 15,
                                 color: controller.hendPayment == true
@@ -332,9 +336,9 @@ class RideDetails extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: controller.hendPayment == true
                                 ? white
-                                : lightgreen,
+                                : maincolor,
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(width: 1, color: lightgreen)),
+                            border: Border.all(width: 1, color: maincolor)),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceAround,

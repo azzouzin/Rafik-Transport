@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:rafik/Controller/Services/tokens_service.dart';
+import 'package:rafik/Helpers/translate_helper.dart';
 import 'package:rafik/View/Authpages/chosepage.dart';
 import 'package:rafik/View/Authpages/terms.dart';
 import 'package:rafik/View/Compenents/theme.dart';
@@ -40,7 +41,7 @@ class _OneBoardState extends State<OneBoard> {
                       top: Get.height * 0.04,
                     ),
                     child: const Text(
-                      'Rafik',
+                      'SharikCar',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 25,
@@ -53,11 +54,12 @@ class _OneBoardState extends State<OneBoard> {
                     ),
                     child: SizedBox(
                       width: Get.width * 0.7,
-                      child: const Text(
-                        " It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
+                      child: Text(
+                        getStatment(
+                            "Make your travel less expensive and more enjoyable by sharing your trip with other travelers"),
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 255, 255, 255),
                             fontSize: 20,
                             fontWeight: FontWeight.w400),
                       ),
@@ -90,8 +92,8 @@ class _OneBoardState extends State<OneBoard> {
                     padding: EdgeInsets.only(
                       top: Get.height * 0.04,
                     ),
-                    child: const Text(
-                      'Sharikcar',
+                    child: Text(
+                      getStatment("Join our family"),
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 25,
@@ -104,8 +106,9 @@ class _OneBoardState extends State<OneBoard> {
                     ),
                     child: SizedBox(
                       width: Get.width * 0.7,
-                      child: const Text(
-                        " It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
+                      child: Text(
+                        getStatment(
+                            "SharikCar provides you with the opportunity to profit from every trip you take in your car"),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.white,
@@ -141,8 +144,8 @@ class _OneBoardState extends State<OneBoard> {
                     padding: EdgeInsets.only(
                       top: Get.height * 0.04,
                     ),
-                    child: const Text(
-                      'Rafik',
+                    child: Text(
+                      getStatment("Join our family"),
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 25,
@@ -156,7 +159,7 @@ class _OneBoardState extends State<OneBoard> {
                     child: SizedBox(
                       width: Get.width * 0.7,
                       child: const Text(
-                        " It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
+                        "Sharik Car",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.white,
