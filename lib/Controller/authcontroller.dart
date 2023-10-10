@@ -69,7 +69,7 @@ class Authcontroller extends GetxController {
       print(profile?.phone);
       Get.snackbar('Happy to see you ', 'Take your time and chose your ride',
           backgroundColor: green);
-      Get.toNamed('/homepage');
+      Get.offAllNamed('/homepage');
     } else {
       Get.snackbar('Error', resp ?? 'Unkown Error Please Try Again',
           backgroundColor: pink, colorText: white);
@@ -97,7 +97,7 @@ class Authcontroller extends GetxController {
 
       Get.snackbar('Happy to see you ', 'Take your time and chose your ride',
           backgroundColor: green);
-      Get.toNamed('/driverhome');
+      Get.offAllNamed('/driverhome');
     } else {
       Get.snackbar('Error', resp ?? 'Unkown Error Please Try Again',
           backgroundColor: pink, colorText: white);

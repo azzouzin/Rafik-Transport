@@ -131,31 +131,17 @@ class RideDetails extends StatelessWidget {
                 ),
 
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: Get.width * 0.05,
-                              right: Get.width * 0.05,
-                              top: 15),
-                          child: Text(
-                              '${getStatment('Seats available')} : ${ride.seats}',
-                              style: Get.textTheme.bodyMedium),
-                        ),
-                        //Locations
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: Get.width * 0.05, vertical: 10),
-                          child: Text(
-                              '${getStatment('Ride price')} : ${ride.price} DA',
-                              style: Get.textTheme.bodyLarge),
-                        ),
-                      ],
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: Get.width * 0.05,
+                          right: Get.width * 0.05,
+                          top: 15),
+                      child: Text(
+                          '${getStatment('Seats available')} : ${ride.seats}',
+                          style: Get.textTheme.bodyMedium),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -172,6 +158,14 @@ class RideDetails extends StatelessWidget {
                     ),
                   ],
                 ),
+                //Locations
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Get.width * 0.05, vertical: 10),
+                  child: Text('${getStatment('Ride price')} : ${ride.price} DA',
+                      style: Get.textTheme.bodyLarge),
+                ),
+
                 //  SizedBox(height: 5),
                 Padding(
                   padding: EdgeInsets.symmetric(

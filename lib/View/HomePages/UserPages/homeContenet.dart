@@ -117,7 +117,7 @@ class HomeContenent extends StatelessWidget {
                       }),
                 )),
         */ //Button
-            SizedBox(height: Get.height * 0.25),
+            SizedBox(height: Get.height * 0.1),
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(

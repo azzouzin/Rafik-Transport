@@ -22,7 +22,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  Authcontroller authcontroller = Get.put(Authcontroller());
+  Authcontroller authcontroller = Get.put(Authcontroller(), permanent: true);
   @override
   void initState() {
     // TODO: implement initState
@@ -141,15 +141,15 @@ class _SplashScreenState extends State<SplashScreen> {
         AppUser? appUser = await authcontroller
             .getUserData(FirebaseAuth.instance.currentUser!.uid);
         if (appUser!.isDriver == false) {
-          Get.toNamed("/homepage");
+          Get.offNamed("/homepage");
         } else {
-          Get.toNamed("/driverhome");
+          Get.offNamed("/driverhome");
         }
       } else {
         if (driver!.isDriver == true) {
-          Get.toNamed("/driverhome");
+          Get.offNamed("/driverhome");
         } else {
-          Get.toNamed("/homepage");
+          Get.offNamed("/homepage");
         }
       }
     } else {
