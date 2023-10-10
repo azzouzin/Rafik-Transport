@@ -66,7 +66,7 @@ class RideDetails extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   child: SizedBox(
                     width: Get.width * 0.95,
-                    height: Get.height * 0.075,
+                    height: Get.height * 0.03,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
@@ -77,14 +77,42 @@ class RideDetails extends StatelessWidget {
                         const SizedBox(
                           width: 10,
                         ),
-                        Text('${ride.from} - ${ride.to}',
-                            style: Get.textTheme.bodyMedium),
+                        Text('${ride.from}', style: Get.textTheme.bodyMedium),
                       ],
                     ),
                   ),
                 ),
-
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  child: SizedBox(
+                    width: Get.width * 0.95,
+                    height: Get.height * 0.03,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Icon(
+                          Iconsax.location,
+                          color: pink,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text('${ride.to}', style: Get.textTheme.bodyMedium),
+                      ],
+                    ),
+                  ),
+                ),
                 //CAr Details
+                //Divider
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: Get.width * 0.05, right: Get.width * 0.05, top: 15),
+                  child: const Divider(
+                    color: Colors.grey,
+                    thickness: 0.5,
+                  ),
+                ),
+
                 Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
@@ -96,7 +124,7 @@ class RideDetails extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(
                       left: Get.width * 0.05, right: Get.width * 0.05, top: 15),
-                  child: Divider(
+                  child: const Divider(
                     color: Colors.grey,
                     thickness: 0.5,
                   ),
@@ -127,26 +155,6 @@ class RideDetails extends StatelessWidget {
                               '${getStatment('Ride price')} : ${ride.price} DA',
                               style: Get.textTheme.bodyLarge),
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: Get.width * 0.05,
-                          ),
-                          child: RatingBar.builder(
-                            initialRating: double.parse(ride.driver!.rating),
-                            minRating: 1,
-                            direction: Axis.horizontal,
-                            unratedColor: Color.fromARGB(255, 219, 218, 216),
-                            allowHalfRating: true,
-                            itemCount: 5,
-                            itemSize: 25,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                            itemBuilder: (context, _) => Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                            ),
-                            onRatingUpdate: (double value) {},
-                          ),
-                        ),
                       ],
                     ),
                     Padding(
@@ -164,17 +172,18 @@ class RideDetails extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 25),
-                Center(
-                  child: mybutton(
-                    bgcolor: Colors.blue,
-                    ontap: () {
-                      showbottom(context);
-                    },
-                    cntr: Text(
-                      getStatment('Pay'),
-                      style: Get.textTheme.headlineLarge,
-                    ),
+                //  SizedBox(height: 5),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Get.width * 0.05, vertical: 10),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('${getStatment('Phone number')} :',
+                          style: Get.textTheme.bodyLarge),
+                      Text(' ${ride.driver!.phone}',
+                          style: Get.textTheme.bodyLarge),
+                    ],
                   ),
                 ),
                 const SizedBox(
@@ -258,7 +267,7 @@ class RideDetails extends StatelessWidget {
                     getStatment("Choose payment method"),
                     style: Get.textTheme.titleLarge!.copyWith(fontSize: 20),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 10),
                   Text(
                     getStatment(
                         "You can pay hand to hand or with baridi mob, please select a choice"),
@@ -266,7 +275,7 @@ class RideDetails extends StatelessWidget {
                         .copyWith(fontSize: 15, color: Colors.grey),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   GetBuilder<RidesController>(builder: (controller) {
                     return Expanded(
@@ -375,7 +384,19 @@ class RideDetails extends StatelessWidget {
                         ),
                       ),
                     ));
-                  })
+                  }),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  mybutton(
+                      bgcolor: maincolordarker,
+                      ontap: () {
+                        Get.back();
+                      },
+                      cntr: Text(
+                        getStatment('Next'),
+                        style: TextStyle(color: Colors.white),
+                      ))
                 ],
               ),
             ),

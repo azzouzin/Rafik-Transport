@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   String language = "ar";
-
+  bool iswaiting = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               child: Icon(Iconsax.language_circle, color: Colors.grey),
             ),
-            title: Text(getStatment("Language"),
+            title: Text(getStatment("Join our family"),
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1
@@ -60,14 +60,47 @@ class _SplashScreenState extends State<SplashScreen> {
             trailing: DropdownButton<String>(
                 elevation: 10,
                 value: language,
-                items: const [
-                  DropdownMenuItem<String>(value: "ar", child: Text("العربية")),
+                items: [
+                  DropdownMenuItem<String>(
+                    value: "ar",
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("العربية"),
+                        SizedBox(width: 5),
+                        SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: Image.asset("assets/algeria.png")),
+                      ],
+                    ),
+                  ),
                   DropdownMenuItem(
-                    child: Text("Francais"),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Francais"),
+                        SizedBox(width: 5),
+                        SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: Image.asset("assets/france.png")),
+                      ],
+                    ),
                     value: "fr",
                   ),
                   DropdownMenuItem(
-                    child: Text("English"),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("English"),
+                        SizedBox(width: 5),
+                        SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: Image.asset("assets/united-kingdom.png")),
+                      ],
+                    ),
                     value: "en",
                   )
                 ],
@@ -81,18 +114,20 @@ class _SplashScreenState extends State<SplashScreen> {
                   print(language);
                 }),
           ),
-          Loader(),
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  fixedSize: Size(Get.width * 0.95, Get.height * 0.075),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10))),
-              onPressed: () {
-                Get.to(OneBoard());
-              },
-              child: Text("!start",
-                  style:
-                      Get.theme.textTheme.titleLarge!.copyWith(color: white)))
+          iswaiting == true ? Loader() : SizedBox(),
+          iswaiting == false
+              ? ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      fixedSize: Size(Get.width * 0.95, Get.height * 0.075),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                  onPressed: () {
+                    Get.to(OneBoard());
+                  },
+                  child: Text("Start",
+                      style: Get.theme.textTheme.titleLarge!
+                          .copyWith(color: white)))
+              : Container()
         ],
       )),
     );
@@ -119,6 +154,11 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     } else {
       Future.delayed(Duration(seconds: 3));
+      setState(() {
+        iswaiting = false;
+      });
+
+      changeLanguage("ar");
       //  Get.to(OneBoard());
     }
   }

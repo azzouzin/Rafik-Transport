@@ -69,7 +69,7 @@ class HomeContenent extends StatelessWidget {
                   child: borderlesstextfield(
                       controller:
                           locationsController.destinationEditingController,
-                      label: 'Where is your destination ?'),
+                      label: getStatment('where do you want to go')),
                 ),
               ]),
             ),

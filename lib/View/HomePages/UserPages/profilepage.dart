@@ -26,10 +26,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         return Future.delayed(Duration(microseconds: 100));
       },
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          getStatment("Try now!");
-          changeLanguage("ar");
-        }),
         appBar: AppBar(
           leading: IconButton(
               onPressed: () => Get.toNamed("/homepage"),
@@ -140,15 +136,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   trailing: DropdownButton<String>(
                       elevation: 10,
                       value: language,
-                      items: const [
+                      items: [
                         DropdownMenuItem<String>(
-                            value: "ar", child: Text("العربية")),
+                          value: "ar",
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("العربية"),
+                              SizedBox(width: 5),
+                              SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: Image.asset("assets/algeria.png")),
+                            ],
+                          ),
+                        ),
                         DropdownMenuItem(
-                          child: Text("Francais"),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text("Francais"),
+                              SizedBox(width: 5),
+                              SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: Image.asset("assets/france.png")),
+                            ],
+                          ),
                           value: "fr",
                         ),
                         DropdownMenuItem(
-                          child: Text("English"),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("English"),
+                              SizedBox(width: 5),
+                              SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child:
+                                      Image.asset("assets/united-kingdom.png")),
+                            ],
+                          ),
                           value: "en",
                         )
                       ],
@@ -158,7 +187,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           language = value!;
                         });
                         changeLanguage(language);
-                        Get.to(ProfileScreen());
+
                         print(language);
                       }),
                 ),
@@ -182,21 +211,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Get.defaultDialog(
                         title: getStatment("Log out"),
                         titleStyle: const TextStyle(fontSize: 20),
-                        content: const Padding(
+                        content: Padding(
                           padding: EdgeInsets.symmetric(vertical: 15.0),
-                          child: Text("Are you sure, you want to Logout?"),
+                          child: Text(
+                              "${getStatment('Êtes-vous sûr de vouloir vous déconnecter?')}"),
                         ),
-                        confirm: Expanded(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              print('logout');
-                              authcontroller.logout();
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.redAccent,
-                                side: BorderSide.none),
-                            child: const Text("Yes"),
-                          ),
+                        confirm: ElevatedButton(
+                          onPressed: () {
+                            print('logout');
+                            authcontroller.logout();
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.redAccent,
+                              side: BorderSide.none),
+                          child: const Text("Yes"),
                         ),
                         cancel: OutlinedButton(
                             onPressed: () => Get.back(),

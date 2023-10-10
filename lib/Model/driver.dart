@@ -27,6 +27,7 @@ class Driver {
       'name': name,
       'carmodele': carmodele,
       'rating': rating,
+      'phone': phone,
       'image': image,
       'email': email,
       'isDriver': isDriver,

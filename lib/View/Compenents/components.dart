@@ -31,16 +31,6 @@ Widget mytextField({
             keyboardType: label == getStatment("Phone number")
                 ? TextInputType.number
                 : TextInputType.name,
-            /* onTap: () {
-            if (validateEmail(controller.text) != null) {
-              Get.snackbar('Error', 'Invalid Email');
-            }
-          },
-          onEditingComplete: () {
-            if (validateEmail(controller.text) != null) {
-              Get.snackbar('Error', 'Invalid Email');
-            }
-          },*/
             style: Get.textTheme.bodyMedium,
             controller: controller,
             obscureText: label == getStatment('Password') ? true : false,
@@ -49,6 +39,8 @@ Widget mytextField({
               //errorText: validateEmail(controller.text),
               border: InputBorder.none,
               hintText: label,
+
+              alignLabelWithHint: true,
               fillColor: white,
               filled: true,
               hintStyle: Get.textTheme.bodyMedium,
@@ -152,6 +144,11 @@ Widget mybutton({
                 )),
     ),
   );
+}
+
+SnackbarController alertError(titel, messege) {
+  return Get.snackbar(titel, messege,
+      backgroundColor: Colors.red, colorText: Colors.white);
 }
 
 class Loader extends StatelessWidget {

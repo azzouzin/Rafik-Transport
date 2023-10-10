@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:rafik/Controller/Middleware/middleware.dart';
 import 'package:rafik/Controller/Services/tokens_service.dart';
+import 'package:rafik/Helpers/translate_helper.dart';
 import 'package:rafik/View/Authpages/splash_screen.dart';
 import 'Controller/Bindings/homepagebindings.dart';
 import 'View/Authpages/chosepage.dart';
@@ -21,6 +23,12 @@ void main() async {
   await Firebase.initializeApp();
   HttpOverrides.global = new PostHttpOverrides();
   isOpend = await TokenController().getopend() ?? 'no';
+  var box = Hive.box('myBox');
+
+  String? language = box.get('mykey');
+  if (language == null) {
+    changeLanguage("ar");
+  }
   runApp(const MyApp());
 }
 
@@ -34,9 +42,6 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: lightTheme,
       darkTheme: darkTheme,
-      //  home: Example(title: 'HOHO'),
-      // home: Welcome(),
-
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => const SplashScreen(), middlewares: [

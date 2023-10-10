@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -42,6 +44,16 @@ class Authcontroller extends GetxController {
     print(profile?.name);
     print(profile?.phone);
     return profile;
+  }
+
+  void setlaodingtrue() {
+    isloading = true;
+    update();
+  }
+
+  void setloadingfalse() {
+    isloading = false;
+    update();
   }
 
   Future<void> login(email, password) async {
@@ -156,8 +168,10 @@ class Authcontroller extends GetxController {
     update();
   }
 
-  Future<void> signupdriver(email, password, name, phone, carModele) async {
+  Future<void> signupdriver(
+      email, password, name, String phone, carModele) async {
     print("Sign ip driver called");
+    log(phone);
     isloading = true;
     update();
     var resp = await authServices.registerDriverWithEmailAndPassword(
@@ -170,7 +184,7 @@ class Authcontroller extends GetxController {
     isloading = false;
     Get.snackbar("Your Account is Verified ", "Welcome to rafik Community",
         backgroundColor: Colors.green, colorText: Colors.white);
-    Get.offAllNamed("/signup");
+    Get.toNamed("/signup");
     update();
   }
 

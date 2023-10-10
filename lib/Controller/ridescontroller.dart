@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -129,7 +131,7 @@ class RidesController extends GetxController {
   ].obs;
 
   RxString searchedName = ''.obs;
-
+  Authcontroller authcontroller = Get.put(Authcontroller());
   void changepaymentMethod() {
     hendPayment = !hendPayment;
     update();
@@ -195,24 +197,31 @@ class RidesController extends GetxController {
 
   void getrides() async {
     isloading = true;
-    print(isloading);
+
     searchedrides.clear();
     myRides.clear();
     update();
     String driverid = FirebaseAuth.instance.currentUser!.uid;
     var documents = await FirebaseFirestore.instance.collection("rides").get();
-    print(documents.docs.isEmpty);
+
     for (var element in documents.docs) {
       searchedrides.add(Ride.fromMap(element.data()));
-      print(
-          "${searchedrides.last.driver!.uid!} = ${driverid} ? ${searchedrides.last.driver!.uid! == driverid} ");
-      if (searchedrides.last.driver!.uid! == driverid) {
-        myRides.add(Ride.fromMap(element.data()));
-        print("My Rides Lenght is ${myRides.length}");
+
+      if (authcontroller.driverProfile != null) {
+        print(
+            "${searchedrides.last.driver!.uid!} = ${driverid} ? ${searchedrides.last.driver!.uid! == driverid} ");
+
+        if (searchedrides.last.driver!.uid! ==
+            authcontroller.driverProfile!.uid) {
+          myRides.add(searchedrides.last);
+
+          print(myRides.last.price.toString());
+          print(myRides.last.driver!.name.toString());
+          print("My Rides Lenght is ${myRides.length}");
+        }
       }
-      print(element.data());
     }
-    print(searchedrides);
+
     isloading = false;
     update();
   }

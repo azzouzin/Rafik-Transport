@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -102,7 +103,7 @@ class AuthServices {
                       phone: phone,
                       uid: user.uid,
                       image:
-                          'https://storage.prompt-hunt.workers.dev/clfmn65vp000el208wbgdezvk_1')
+                          'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=826&t=st=1696860037~exp=1696860637~hmac=dbabaf9c995171e8af299c1130d45748b44242560cf027dcf5a079e51b5ae156')
                   .toMap())
               .then((value) async {
             AppUser? appUser = await getuserdata(user.uid);
@@ -143,11 +144,11 @@ class AuthServices {
       {required String password,
       required String carModele,
       required String name,
-      phone,
+      required String phone,
       email}) async {
     print('EMAIL = $email');
     print('password = $password');
-    print('phone = $carModele');
+    print('car modele = $carModele');
     print('name = $name');
     print('phone = $phone');
     try {
@@ -163,7 +164,7 @@ class AuthServices {
       if (user != null) {
         // User registration successful, perform any additional tasks
         print('User registration successful. User ID: ${user.uid}');
-
+        print(phone);
         try {
           FirebaseFirestore.instance
               .collection('drivers')
@@ -273,7 +274,7 @@ class AuthServices {
     }
 
     Object data = snapshot.data()!;
-
+    log(data.toString());
     Driver driver = Driver.fromMap(data as Map<String, dynamic>);
 
     print(driver.name);

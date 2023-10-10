@@ -102,98 +102,102 @@ class SearchRides extends StatelessWidget {
 
   Center ridedetails(ride) {
     return Center(
-      child: OpenContainer(
-        closedBuilder: (_, openContainer) {
-          return Container(
-            // margin: EdgeInsets.symmetric(vertical: 100),
-            height: Get.height * 0.2,
-            width: Get.width * 0.95,
-            child: Row(
-              children: [
-                SizedBox(
-                    width: Get.width * 0.4,
-                    height: Get.height * 0.2,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        ride.driver!.image,
-                        fit: BoxFit.cover,
-                      ),
-                    )),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+      child: ride.seats! < 1
+          ? Container()
+          : OpenContainer(
+              closedBuilder: (_, openContainer) {
+                return Container(
+                  // margin: EdgeInsets.symmetric(vertical: 100),
+                  height: Get.height * 0.2,
+                  width: Get.width * 0.95,
+                  child: Row(
                     children: [
                       SizedBox(
-                        height: Get.height * 0.075,
-                        width: Get.width * 0.4,
-                        child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              Text(
-                                '${ride.from} - ${ride.to}',
-                                style: Get.textTheme.headlineLarge!.copyWith(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                          width: Get.width * 0.4,
+                          height: Get.height * 0.2,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              ride.driver!.image,
+                              fit: BoxFit.cover,
+                            ),
+                          )),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            SizedBox(
+                              height: Get.height * 0.075,
+                              width: Get.width * 0.4,
+                              child: ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  children: [
+                                    Text(
+                                      '${ride.from} - ${ride.to}',
+                                      style:
+                                          Get.textTheme.headlineLarge!.copyWith(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ]),
+                            ),
+                            Text(
+                              'Date : ${ride.date}',
+                              style: Get.textTheme.headlineLarge!.copyWith(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
                               ),
-                            ]),
-                      ),
-                      Text(
-                        'Date : ${ride.date}',
-                        style: Get.textTheme.headlineLarge!.copyWith(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        'Price : ${ride.price} DA',
-                        style: Get.textTheme.headlineLarge!.copyWith(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        'Seats availble : ${ride.seats}',
-                        style: Get.textTheme.headlineLarge!.copyWith(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        'Rating : ${ride.driver!.rating}',
-                        style: Get.textTheme.headlineLarge!.copyWith(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
+                            ),
+                            Text(
+                              'Price : ${ride.price} DA',
+                              style: Get.textTheme.headlineLarge!.copyWith(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Text(
+                              'Seats availble : ${ride.seats}',
+                              style: Get.textTheme.headlineLarge!.copyWith(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Text(
+                              'Rating : ${ride.driver!.rating}',
+                              style: Get.textTheme.headlineLarge!.copyWith(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                ),
-              ],
+                );
+              },
+              openColor: Colors.white,
+              closedElevation: 5.0,
+              closedShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              closedColor: Colors.white,
+              openBuilder: (_, closeContainer) {
+                return RideDetails(
+                  ride: ride,
+                  closeContainer: closeContainer,
+                );
+              },
             ),
-          );
-        },
-        openColor: Colors.white,
-        closedElevation: 5.0,
-        closedShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        closedColor: Colors.white,
-        openBuilder: (_, closeContainer) {
-          return RideDetails(
-            ride: ride,
-            closeContainer: closeContainer,
-          );
-        },
-      ),
     );
   }
 }

@@ -71,6 +71,7 @@ dependencies:
   hive: ^2.2.3
   rive: ^0.11.17
   shared_preferences: ^2.2.1
+  flutter_datetime_picker_bdaya: ^3.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

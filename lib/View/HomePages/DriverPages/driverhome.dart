@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
 import 'package:animations/animations.dart';
@@ -16,7 +17,9 @@ import 'package:latlong2/latlong.dart';
 
 import 'package:rafik/Controller/authcontroller.dart';
 import 'package:rafik/Controller/locationsController.dart';
+import 'package:rafik/Helpers/translate_helper.dart';
 import 'package:rafik/View/Compenents/theme.dart';
+import 'package:rafik/View/HomePages/DriverPages/add_Ride.dart';
 import 'package:rafik/View/HomePages/DriverPages/userslistpage.dart';
 
 import '../../../../Controller/ridescontroller.dart';
@@ -58,7 +61,7 @@ class DriverHomePageState extends State<DriverHomePage> {
               elevation: 5,
               centerTitle: true,
               title: Text(
-                "Welcome back ${authcontroller.driverProfile!.name}",
+                "${getStatment('Welcome back')} ${authcontroller.driverProfile!.name}",
                 style: Get.textTheme.headlineLarge,
                 // style: Get.textTheme.titleLarge!.copyWith(color: white),
               )),
@@ -175,7 +178,7 @@ class DriverHomePageState extends State<DriverHomePage> {
                         scrollDirection: Axis.horizontal,
                         children: [
                           Text(
-                            'Date : ${ridesController.searchedrides[index].date}',
+                            'Date : ${ridesController.myRides[index].date}',
                             style: Get.textTheme.headlineLarge!.copyWith(
                                 color: Colors.white,
                                 fontSize: 10,
@@ -186,7 +189,7 @@ class DriverHomePageState extends State<DriverHomePage> {
                       ),
                     ),
                     Text(
-                      'Price : ${ridesController.searchedrides[index].price}',
+                      'Price : ${ridesController.myRides[index].price}',
                       style: Get.textTheme.headlineLarge!.copyWith(
                           color: Colors.white,
                           fontSize: 10,
@@ -207,7 +210,7 @@ class DriverHomePageState extends State<DriverHomePage> {
         closedColor: Colors.white,
         openBuilder: (_, closeContainer) {
           return DriverRideDetails(
-            ride: ridesController.searchedrides[index],
+            ride: ridesController.myRides[index],
             closeContainer: closeContainer,
           );
         },
@@ -258,7 +261,7 @@ class DriverHomePageState extends State<DriverHomePage> {
                   ),
                 ),
                 Text(
-                  'Date : ${ridesController.searchedrides[index].date}',
+                  '${getStatment('Date')} : ${ridesController.searchedrides[index].date}',
                   style: Get.textTheme.headlineLarge!.copyWith(
                       color: Colors.white,
                       fontSize: 10,
@@ -266,7 +269,7 @@ class DriverHomePageState extends State<DriverHomePage> {
                       overflow: TextOverflow.fade),
                 ),
                 Text(
-                  'Price : ${ridesController.searchedrides[index].price}',
+                  '${getStatment('Price')} : ${ridesController.searchedrides[index].price}',
                   style: Get.textTheme.headlineLarge!.copyWith(
                       color: Colors.white,
                       fontSize: 10,
@@ -293,121 +296,6 @@ class DriverHomePageState extends State<DriverHomePage> {
     );
   }
 
-  Widget addridepage() {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(
-              height: Get.height * 0.4, width: Get.width, child: flutterMap()),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // Container(  height: Get.height * 0.45,width: Get.width/2,color: Colors.amber,),
-
-                const SizedBox(
-                  height: 30,
-                ),
-                Container(
-                    decoration: BoxDecoration(boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 5,
-                          blurRadius: 10)
-                    ]),
-                    child: mytextField(
-                        controller: departlocation, label: 'Depart Location')),
-                const SizedBox(
-                  height: 30,
-                ),
-                Container(
-                    decoration: BoxDecoration(boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 5,
-                          blurRadius: 10)
-                    ]),
-                    child: mytextField(
-                        controller: destinationC,
-                        label: 'Destination Location')),
-                const SizedBox(
-                  height: 30,
-                ),
-                Container(
-                    decoration: BoxDecoration(boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 5,
-                          blurRadius: 10)
-                    ]),
-                    child: mytextField(controller: price, label: 'Price DA')),
-                const SizedBox(
-                  height: 30,
-                ),
-                Container(
-                    decoration: BoxDecoration(boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 5,
-                          blurRadius: 10)
-                    ]),
-                    child: mytextField(
-                        controller: seats, label: 'Number Of Seats Available')),
-                const SizedBox(
-                  height: 30,
-                ),
-                //  mytextField(controller: date, label: 'Date'),
-
-                Container(
-                  decoration: BoxDecoration(boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 5,
-                        blurRadius: 10)
-                  ]),
-                  child: mybutton(
-                      ontap: () {
-                        print('Creat New ride tapped');
-
-                        DateTime now = DateTime.now();
-
-                        DateFormat yearFormat = DateFormat('yyyy');
-                        DateFormat monthFormat = DateFormat('MM');
-                        DateFormat dayFormat = DateFormat('dd');
-                        DateFormat hourFormat = DateFormat('HH');
-                        DateFormat minuteFormat = DateFormat('mm');
-
-                        String year = yearFormat.format(now);
-                        String month = monthFormat.format(now);
-                        String day = dayFormat.format(now);
-                        String hour = hourFormat.format(now);
-                        String minute = minuteFormat.format(now);
-
-                        print('$year-$month-$day $hour:$minute');
-                        ridesController.addnewRide(
-                            from: departlocation.text,
-                            to: destinationC.text,
-                            price: price.text,
-                            date: '$month-$day $hour:$minute',
-                            seats: seats.text,
-                            driver: authcontroller.driverProfile!,
-                            startpoint: GeoPoint(
-                                locationsController.currentPosition.latitude,
-                                locationsController.currentPosition.longitude),
-                            endpoint: GeoPoint(destenation!.point.latitude,
-                                destenation!.point.longitude));
-                      },
-                      cntr: Text('Creat New Ride')),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget bodycontenent() {
     return GetBuilder<LocationsController>(builder: (locationsController) {
       return locationsController.isloading
@@ -420,10 +308,10 @@ class DriverHomePageState extends State<DriverHomePage> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
+                      Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
-                        child: Text('Your Rides'),
+                        child: Text(getStatment('Your rides')),
                       ),
                       Container(
                         height: Get.height * 0.2,
@@ -451,22 +339,18 @@ class DriverHomePageState extends State<DriverHomePage> {
                                 itemCount: ridesController.myRides.length,
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
-                                  return (ridesController
-                                              .myRides[index].driver!.uid! ==
-                                          authcontroller.driverProfile!.uid!)
-                                      ? Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: ridedetails2(index))
-                                      : Container();
+                                  return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: ridedetails2(index));
                                 },
                               ),
                       ),
-                      const Padding(
+                      Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
                         child: Row(
                           children: [
-                            Text('All Active Rides'),
+                            Text(getStatment("All active rides")),
                           ],
                         ),
                       ),
@@ -476,8 +360,6 @@ class DriverHomePageState extends State<DriverHomePage> {
                       ),
                       Expanded(
                         child: GridView.builder(
-                          //       padding: EdgeInsets.symmetric(horizontal: 10),
-
                           physics: BouncingScrollPhysics(),
                           itemBuilder: (context, index) {
                             return Padding(
@@ -498,7 +380,7 @@ class DriverHomePageState extends State<DriverHomePage> {
               : currentIndex == 1
                   ? MessegePage()
                   : currentIndex == 2
-                      ? addridepage()
+                      ? AddRidePage()
                       : DriverProfileScreen();
     });
   }

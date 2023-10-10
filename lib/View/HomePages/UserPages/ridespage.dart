@@ -71,99 +71,103 @@ class RidesPage extends StatelessWidget {
 
   Center ridedetails(int index) {
     return Center(
-      child: OpenContainer(
-        closedBuilder: (_, openContainer) {
-          return Container(
-            height: Get.height * 0.2,
-            width: Get.width * 0.95,
-            child: Row(
-              children: [
-                SizedBox(
-                    width: Get.width * 0.3,
-                    height: Get.height * 0.2,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        ridesController.searchedrides[index].driver!.image,
-                        fit: BoxFit.cover,
-                      ),
-                    )),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+      child: ridesController.searchedrides[index].seats! < 1
+          ? Container()
+          : OpenContainer(
+              closedBuilder: (_, openContainer) {
+                return Container(
+                  height: Get.height * 0.2,
+                  width: Get.width * 0.95,
+                  child: Row(
                     children: [
                       SizedBox(
-                        height: Get.height * 0.05,
-                        width: Get.width * 0.5,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
+                          width: Get.width * 0.3,
+                          height: Get.height * 0.2,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              ridesController
+                                  .searchedrides[index].driver!.image,
+                              fit: BoxFit.cover,
+                            ),
+                          )),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
+                            SizedBox(
+                              height: Get.height * 0.05,
+                              width: Get.width * 0.5,
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: [
+                                  Text(
+                                    '${ridesController.searchedrides[index].from} - ${ridesController.searchedrides[index].to}',
+                                    style:
+                                        Get.textTheme.headlineLarge!.copyWith(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                             Text(
-                              '${ridesController.searchedrides[index].from} - ${ridesController.searchedrides[index].to}',
+                              "${getStatment('Date')}: ${ridesController.searchedrides[index].date}",
                               style: Get.textTheme.headlineLarge!.copyWith(
                                 color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Text(
+                              '${getStatment('Price')}: ${ridesController.searchedrides[index].price} DA',
+                              style: Get.textTheme.headlineLarge!.copyWith(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Text(
+                              '${getStatment('Seats available')} : ${ridesController.searchedrides[index].seats}',
+                              style: Get.textTheme.headlineLarge!.copyWith(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Text(
+                              '${getStatment('Rating')} : ${ridesController.searchedrides[index].driver!.rating}',
+                              style: Get.textTheme.headlineLarge!.copyWith(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ],
                         ),
                       ),
-                      Text(
-                        "${getStatment('Date')}: ${ridesController.searchedrides[index].date}",
-                        style: Get.textTheme.headlineLarge!.copyWith(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        '${getStatment('Price')}: ${ridesController.searchedrides[index].price} DA',
-                        style: Get.textTheme.headlineLarge!.copyWith(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        '${getStatment('Seats available')} : ${ridesController.searchedrides[index].seats}',
-                        style: Get.textTheme.headlineLarge!.copyWith(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        '${getStatment('Rating')} : ${ridesController.searchedrides[index].driver!.rating}',
-                        style: Get.textTheme.headlineLarge!.copyWith(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
                     ],
                   ),
-                ),
-              ],
+                );
+              },
+              openColor: Colors.white,
+              closedElevation: 5.0,
+              closedShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              closedColor: Colors.white,
+              openBuilder: (_, closeContainer) {
+                return RideDetails(
+                  ride: ridesController.searchedrides[index],
+                  closeContainer: closeContainer,
+                );
+              },
             ),
-          );
-        },
-        openColor: Colors.white,
-        closedElevation: 5.0,
-        closedShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        closedColor: Colors.white,
-        openBuilder: (_, closeContainer) {
-          return RideDetails(
-            ride: ridesController.searchedrides[index],
-            closeContainer: closeContainer,
-          );
-        },
-      ),
     );
   }
 }

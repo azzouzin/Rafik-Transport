@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rafik/Controller/locationsController.dart';
 import 'package:rafik/Controller/ridescontroller.dart';
 import 'package:rafik/Controller/usercontoller.dart';
+import 'package:rafik/Helpers/translate_helper.dart';
 import 'package:rafik/View/Compenents/theme.dart';
 
 import '../../../../Controller/authcontroller.dart';
 
-class DriverProfileScreen extends StatelessWidget {
+class DriverProfileScreen extends StatefulWidget {
   DriverProfileScreen({Key? key}) : super(key: key);
+
+  @override
+  State<DriverProfileScreen> createState() => _DriverProfileScreenState();
+}
+
+class _DriverProfileScreenState extends State<DriverProfileScreen> {
   Authcontroller authcontroller = Get.put(Authcontroller(), permanent: true);
+
   RidesController ridesController = Get.put(RidesController(), permanent: true);
+
+  String language = "ar";
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +91,9 @@ class DriverProfileScreen extends StatelessWidget {
               Text(authcontroller.driverProfile!.email,
                   style: Get.textTheme.headlineLarge!
                       .copyWith(fontSize: 15, color: Colors.black)),
+              Text(authcontroller.driverProfile!.phone ?? "nul",
+                  style: Get.textTheme.headlineLarge!
+                      .copyWith(fontSize: 15, color: Colors.black)),
               const SizedBox(height: 20),
 
               //change Photo
@@ -94,27 +108,12 @@ class DriverProfileScreen extends StatelessWidget {
                       backgroundColor: Colors.blue,
                       side: BorderSide.none,
                       shape: const StadiumBorder()),
-                  child: const Text('Update Photo',
+                  child: Text('${getStatment('Update picture')}',
                       style: TextStyle(color: Colors.white)),
                 ),
               ),
 
               /// -- BUTTON
-
-              SizedBox(
-                width: 200,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    ridesController.getFees(authcontroller.driverProfile!.uid!);
-                  },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      side: BorderSide.none,
-                      shape: const StadiumBorder()),
-                  child: const Text('Get Fees',
-                      style: TextStyle(color: Colors.white)),
-                ),
-              ),
 
               ///
               const SizedBox(height: 30),
@@ -122,61 +121,116 @@ class DriverProfileScreen extends StatelessWidget {
               const SizedBox(height: 10),
 
               /// -- MENU
+              ListTile(
+                onTap: () {},
+                leading: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: Colors.grey.withOpacity(0.1),
+                  ),
+                  child: Icon(Iconsax.language_circle, color: Colors.grey),
+                ),
+                title: Text(getStatment("Language"),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        ?.apply(color: Colors.black)),
+                trailing: DropdownButton<String>(
+                    elevation: 10,
+                    value: language,
+                    items: [
+                      DropdownMenuItem<String>(
+                        value: "ar",
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("العربية"),
+                            SizedBox(width: 5),
+                            SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: Image.asset("assets/algeria.png")),
+                          ],
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text("Francais"),
+                            SizedBox(width: 5),
+                            SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: Image.asset("assets/france.png")),
+                          ],
+                        ),
+                        value: "fr",
+                      ),
+                      DropdownMenuItem(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("English"),
+                            SizedBox(width: 5),
+                            SizedBox(
+                                height: 20,
+                                width: 20,
+                                child:
+                                    Image.asset("assets/united-kingdom.png")),
+                          ],
+                        ),
+                        value: "en",
+                      )
+                    ],
+                    onChanged: (value) {
+                      print(value);
+                      setState(() {
+                        language = value!;
+                      });
+                      changeLanguage(language);
+
+                      print(language);
+                    }),
+              ),
+
               ProfileMenuWidget(
-                  title: "Settings",
-                  icon: Iconsax.cake,
-                  onPress: () {
-                    Get.snackbar('Settings comming soon',
-                        'We are currently working on it thank you for your patient');
-                  }),
-              ProfileMenuWidget(
-                  title: "Billing Details",
+                  title: getStatment("Biling details"),
                   icon: Iconsax.wallet,
                   onPress: () {
                     ridesController.getFees(authcontroller.driverProfile!.uid);
                     /*   Get.snackbar('Billing comming soon',
                         'We are currently working on it thank you for your patient');*/
                   }),
-              ProfileMenuWidget(
-                  title: "User Management",
-                  icon: Iconsax.user_add,
-                  onPress: () {
-                    Get.snackbar('User Management comming soon',
-                        'We are currently working on it thank you for your patient');
-                  }),
+
               const Divider(),
               const SizedBox(height: 10),
+
               ProfileMenuWidget(
-                  title: "Information",
-                  icon: Iconsax.info_circle,
-                  onPress: () {
-                    Get.snackbar('Information comming soon',
-                        'We are currently working on it thank you for your patient');
-                  }),
-              ProfileMenuWidget(
-                  title: "Logout",
+                  title: getStatment('Log out'),
                   icon: Iconsax.logout,
                   textColor: Colors.red,
                   endIcon: false,
                   onPress: () {
                     Get.defaultDialog(
-                      title: "LOGOUT",
+                      title: getStatment('Log out'),
                       titleStyle: const TextStyle(fontSize: 20),
-                      content: const Padding(
+                      content: Padding(
                         padding: EdgeInsets.symmetric(vertical: 15.0),
-                        child: Text("Are you sure, you want to Logout?"),
+                        child: Text(
+                            "${getStatment('Êtes-vous sûr de vouloir vous déconnecter?')}"),
                       ),
-                      confirm: Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            print('logout');
-                            authcontroller.logout();
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.redAccent,
-                              side: BorderSide.none),
-                          child: const Text("Yes"),
-                        ),
+                      confirm: ElevatedButton(
+                        onPressed: () {
+                          print('logout');
+                          authcontroller.logout();
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.redAccent,
+                            side: BorderSide.none),
+                        child: const Text("Yes"),
                       ),
                       cancel: OutlinedButton(
                           onPressed: () => Get.back(), child: const Text("No")),
@@ -222,13 +276,13 @@ class ProfileMenuWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(100),
           color: iconColor.withOpacity(0.1),
         ),
-        child: Icon(icon, color: title == "Logout" ? Colors.pink : green),
+        child: Icon(icon,
+            color: title == getStatment("Log out") ? Colors.pink : green),
       ),
       title: Text(title,
-          style: Theme.of(context)
-              .textTheme
-              .bodyText1
-              ?.apply(color: title == "Logout" ? Colors.pink : lightgreen)),
+          style: Theme.of(context).textTheme.bodyText1?.apply(
+              color:
+                  title == getStatment("Log out") ? Colors.pink : lightgreen)),
       trailing: endIcon
           ? Container(
               width: 30,

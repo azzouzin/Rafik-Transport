@@ -1,10 +1,12 @@
+import 'dart:developer';
+
 import 'package:hive/hive.dart';
 
 String getStatment(String word) {
   var box = Hive.box('myBox');
 
-  String language = box.get('mykey');
-  print(translateMap[word]![language]);
+  String? language = box.get('mykey');
+
   return translateMap[word]![language]!;
 }
 
@@ -13,10 +15,6 @@ void changeLanguage(String mykey) async {
   var box = Hive.box('myBox');
 
   box.put('mykey', mykey);
-
-  String key = box.get('mykey');
-  print(key);
-  //  print('Word: ${translateMap["Try now!"]![mykey]}');
 }
 
 Map<String, Map<String, String>> translateMap = {
@@ -68,7 +66,8 @@ Map<String, Map<String, String>> translateMap = {
   },
   "Register with us rither as a driver or as a passenger and enjoy a completely new experience with Sharikcar":
       {
-    "ar": "سجل معنا كسائق أو كمسافر واستمتع بتجربة جديدة كليا مع Sharikcar",
+    "ar":
+        " سجل معنا كسائق أو كمسافر واستمتع بتجربة جديدة كليا مع  \nSharikcar \n",
     "fr":
         "Inscrivez-vous chez nous en tant que chauffeur ou passager et profitez d'une toute nouvelle expérience avec Sharikcar",
     "en":
@@ -184,6 +183,11 @@ Map<String, Map<String, String>> translateMap = {
     "en":
         "By selecting agree and continue below, i agree to terms of service and privacy policy"
   },
+  "Êtes-vous sûr de vouloir vous déconnecter?": {
+    "ar": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+    "fr": "Êtes-vous sûr de vouloir vous déconnecter?",
+    "en": "Are you sure, you want to Logout?"
+  },
   "Forget your password?": {
     "ar": "هل نسيت كلمة المرور؟",
     "fr": "Mot de passe oublié ?",
@@ -210,6 +214,7 @@ Map<String, Map<String, String>> translateMap = {
     "en": "Happy to see you again, take your time and choose your rides"
   },
   "Your rides": {"ar": "رحلاتك", "fr": "Vos trajets", "en": "Your rides"},
+  "Time": {"ar": "وقت", "fr": "temps", "en": "Your rides"},
   "All active rides": {
     "ar": "جميع الرحلات النشطة",
     "fr": "Tous les trajets actifs",
@@ -244,5 +249,5 @@ Map<String, Map<String, String>> translateMap = {
     "ar": "تفاصيل الفواتير",
     "fr": "Détails de facturation",
     "en": "Biling details"
-  }
+  },
 };

@@ -19,7 +19,7 @@ final lightTheme = ThemeData(
       elevation: 0,
       backgroundColor: Colors.white,
     ),
-    fontFamily: GoogleFonts.poppins().fontFamily,
+    fontFamily: GoogleFonts.lato().fontFamily,
     // Add your light theme properties here
     // For example:
     textTheme: TextTheme(
@@ -27,16 +27,16 @@ final lightTheme = ThemeData(
           color: Color.fromARGB(255, 15, 15, 15),
           fontSize: 25,
           fontWeight: FontWeight.w900),
-      bodyLarge: GoogleFonts.poppins(
+      bodyLarge: GoogleFonts.lato(
           color: Colors.black, fontSize: 20, fontWeight: FontWeight.w800),
-      bodySmall: GoogleFonts.poppins(
+      bodySmall: GoogleFonts.lato(
           color: Colors.grey, fontSize: 13, fontWeight: FontWeight.w700),
-      headlineLarge: GoogleFonts.poppins(
+      headlineLarge: GoogleFonts.lato(
           color: Colors.white, fontSize: 17, fontWeight: FontWeight.w900),
 
-      titleSmall: GoogleFonts.poppins(
+      titleSmall: GoogleFonts.lato(
           color: Colors.black, fontSize: 15, fontWeight: FontWeight.w900),
-      bodyMedium: GoogleFonts.poppins(
+      bodyMedium: GoogleFonts.lato(
           color: Colors.black, fontSize: 15, fontWeight: FontWeight.w900),
       // Add more properties to customize the TextTheme
     ),
@@ -49,7 +49,7 @@ final lightTheme = ThemeData(
     ));
 
 final darkTheme = ThemeData(
-    fontFamily: GoogleFonts.poppins().fontFamily,
+    fontFamily: GoogleFonts.lato().fontFamily,
     appBarTheme: AppBarTheme(
       color: Colors.black,
       titleTextStyle: TextStyle(

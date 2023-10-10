@@ -66,7 +66,9 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.w300, fontSize: Get.width * 0.06),
             ),
             Text(
-              authcontroller.profile!.name!,
+              authcontroller.profile == null
+                  ? ""
+                  : authcontroller.profile!.name!,
               overflow: TextOverflow.fade,
               style: TextStyle(
                   fontWeight: FontWeight.w500, fontSize: Get.width * 0.06),
@@ -78,8 +80,8 @@ class _HomePageState extends State<HomePage> {
             onTap: () {
               Get.to(ProfileScreen(), binding: Homebindings());
             },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
               child: Icon(
                 Iconsax.setting,
                 color: Colors.black,
@@ -90,13 +92,13 @@ class _HomePageState extends State<HomePage> {
       ),
       body: GetBuilder<LocationsController>(builder: (controller) {
         return controller.isloading == true
-            ? Center(child: Loader())
+            ? const Center(child: Loader())
             : SafeArea(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: Get.height * 0.3,
+                        height: Get.height * 0.45,
                         width: Get.width,
                         child: GoogleMap(
                           markers: Set<Marker>.of(markers),

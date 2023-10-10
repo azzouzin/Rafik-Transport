@@ -1,24 +1,42 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:http/http.dart' as http;
+import 'package:latlong2/latlong.dart';
+import 'package:latlong2/latlong.dart' as latlong;
 import 'package:rafik/Controller/authcontroller.dart';
 import 'package:rafik/Controller/ridescontroller.dart';
+import 'package:rafik/Helpers/translate_helper.dart';
 
 import '../../../../Controller/locationsController.dart';
 import '../../../../Model/ride.dart';
 import '../../Compenents/components.dart';
 import '../../Compenents/theme.dart';
+import '../UserPages/mapPage.dart';
 
-class DriverRideDetails extends StatelessWidget {
+class DriverRideDetails extends StatefulWidget {
   DriverRideDetails({
     required this.closeContainer,
     required this.ride,
   });
   final closeContainer;
   final Ride ride;
+
+  @override
+  State<DriverRideDetails> createState() => _DriverRideDetailsState();
+}
+
+class _DriverRideDetailsState extends State<DriverRideDetails> {
   final LocationsController locationsController = Get.find();
+
   final RidesController ridesController = Get.find();
+  TextEditingController destinationC = TextEditingController();
+
   final Authcontroller authcontroller = Get.put(Authcontroller());
 
   @override
@@ -27,12 +45,12 @@ class DriverRideDetails extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(
-            'Ride Detail',
+          title: Text(
+            getStatment("Ride details"),
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
           ),
           leading: IconButton(
-            onPressed: closeContainer,
+            onPressed: widget.closeContainer,
             icon: const Icon(Iconsax.arrow_left, color: Colors.black),
           ),
         ),
@@ -44,10 +62,7 @@ class DriverRideDetails extends StatelessWidget {
                 SizedBox(
                     height: Get.height * 0.45,
                     width: Get.width,
-                    child: Image.asset(
-                      'assets/tt.jpg',
-                      fit: BoxFit.cover,
-                    )),
+                    child: flutterMap()),
                 const SizedBox(height: 10),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -64,18 +79,30 @@ class DriverRideDetails extends StatelessWidget {
                         const SizedBox(
                           width: 10,
                         ),
-                        Text('${ride.from} - ${ride.to}',
+                        Text('${widget.ride.from}',
                             style: Get.textTheme.bodyMedium),
                       ],
                     ),
                   ),
                 ),
-
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Iconsax.location,
+                        color: pink,
+                      ),
+                      Text('${widget.ride.to}',
+                          style: Get.textTheme.bodyMedium),
+                    ],
+                  ),
+                ),
                 //CAr Details
                 Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      '${ride.driver!.carmodele}',
+                      '${widget.ride.driver!.carmodele}',
                       style: Get.textTheme.bodyLarge!
                           .copyWith(color: Colors.black),
                     )),
@@ -102,35 +129,17 @@ class DriverRideDetails extends StatelessWidget {
                               left: Get.width * 0.05,
                               right: Get.width * 0.05,
                               top: 15),
-                          child: Text('Seats Availble : ${ride.seats}',
+                          child: Text(
+                              '${getStatment('Seats available')} : ${widget.ride.seats}',
                               style: Get.textTheme.bodyMedium),
                         ),
                         //Locations
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: Get.width * 0.05, vertical: 10),
-                          child: Text('Ride Price : ${ride.price} DA',
+                          child: Text(
+                              '${getStatment('Ride price')} : ${widget.ride.price} DA',
                               style: Get.textTheme.bodyLarge),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: Get.width * 0.05,
-                          ),
-                          child: RatingBar.builder(
-                            initialRating: double.parse(ride.driver!.rating),
-                            minRating: 1,
-                            direction: Axis.horizontal,
-                            unratedColor: Color.fromARGB(255, 219, 218, 216),
-                            allowHalfRating: true,
-                            itemCount: 5,
-                            itemSize: 25,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                            itemBuilder: (context, _) => Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                            ),
-                            onRatingUpdate: (double value) {},
-                          ),
                         ),
                       ],
                     ),
@@ -142,39 +151,41 @@ class DriverRideDetails extends StatelessWidget {
                             height: Get.width * 0.175,
                             width: Get.width * 0.175,
                             child: Image.network(
-                              ride.driver!.image,
+                              widget.ride.driver!.image,
                               fit: BoxFit.cover,
                             )),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 25),
 
                 Padding(
                   padding: EdgeInsets.only(
-                      left: Get.width * 0.05, right: Get.width * 0.05, top: 15),
-                  child: Text('${ride.driver!.name!}',
-                      style: Get.textTheme.bodyMedium),
+                      left: Get.width * 0.05, right: Get.width * 0.05, top: 0),
+                  child: Text(
+                      '${getStatment('Name')} : ${widget.ride.driver!.name!}',
+                      style: Get.textTheme.bodyLarge!
+                          .copyWith(fontSize: 20, fontWeight: FontWeight.bold)),
                 ),
                 const SizedBox(
                   height: 25,
                 ),
 
-                authcontroller.driverProfile!.uid! == ride.driver!.uid
+                authcontroller.driverProfile!.uid! == widget.ride.driver!.uid
                     ? Center(
                         child: mybutton(
                           bgcolor: pink,
                           ontap: () {
-                            print(ride.driver!.uid);
+                            print(widget.ride.driver!.uid);
                             Get.dialog(AlertDialog(
-                              title: Text(
+                              title: const Text(
                                   "Are you sure you want to delete this ride?"),
                               actions: [
                                 ElevatedButton(
                                   child: Text("Confirm"),
                                   onPressed: () {
-                                    ridesController.deleteride(ride.uid!);
+                                    ridesController
+                                        .deleteride(widget.ride.uid!);
                                     Get.toNamed("/driverhome");
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -356,5 +367,100 @@ class DriverRideDetails extends StatelessWidget {
             ),
           );
         });
+  }
+
+  Widget flutterMap() {
+    return FlutterMap(
+      options: MapOptions(
+        onTap: (tapPosition, point) async {
+          String locName = await locationsController.getLocationName(
+              point.latitude, point.longitude);
+          setState(() {
+            destenation = Marker(
+              width: 40,
+              height: 40,
+              point: LatLng(point.latitude, point.longitude),
+              builder: (context) {
+                print("NEw Psition");
+                return Image.asset(
+                  "assets/map2.png",
+                  fit: BoxFit.contain,
+                );
+              },
+            );
+            destinationC.text = locName;
+          });
+        },
+        zoom: 10,
+        center: latlong.LatLng(locationsController.currentPosition.latitude,
+            locationsController.currentPosition.longitude),
+      ),
+      children: [
+        // Layer that adds the map
+        TileLayer(
+          urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+          userAgentPackageName: 'dev.fleaflet.flutter_map.example',
+        ),
+        // Layer that adds points the map
+        MarkerLayer(
+          markers: [
+            // Depart Marker
+            Marker(
+                point: LatLng(locationsController.currentPosition.latitude,
+                    locationsController.currentPosition.longitude),
+                width: 40,
+                height: 40,
+                builder: (context) => Image.asset(
+                      "assets/map1.png",
+                      fit: BoxFit.contain,
+                    )),
+            // Dest Marker
+            destenation ?? destenation!,
+          ],
+        ),
+
+        PolylineLayer(
+          polylineCulling: false,
+          polylines: [
+            Polyline(points: points, color: Colors.lightBlue, strokeWidth: 20),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Marker? destenation = Marker(
+    point: LatLng(36.071999, 4.7381114),
+    builder: (context) {
+      return Image.asset("assets/map2.png");
+    },
+  );
+
+  List<LatLng> points = [];
+
+  void getCoordinates(destenation) async {
+    // Requesting for openrouteservice api
+    var response = await http.get(getRouteUrl(
+        "${locationsController.currentPosition.latitude},${locationsController.currentPosition.longitude}",
+        '${destenation.latitude},${destenation.longitude}'));
+    setState(() {
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        var listOfPoints = data['features'][0]['geometry']['coordinates'];
+        points = listOfPoints
+            .map((p) => LatLng(p[1].toDouble(), p[0].toDouble()))
+            .toList();
+      } else {
+        Fluttertoast.showToast(
+            msg: "This is Center Short Toast",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        print(response.body);
+      }
+    });
   }
 }

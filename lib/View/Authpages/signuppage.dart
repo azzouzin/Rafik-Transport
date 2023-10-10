@@ -61,15 +61,18 @@ class _SignupPageState extends State<SignupPage> {
                     child: Container(
                         margin: EdgeInsets.all(40),
                         //  width: Get.width * 0.2,
-                        height: Get.width * 0.1,
+                        // height: Get.width * 0.1,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                                width: Get.width * 0.2,
-                                height: Get.width * 0.2,
-                                child: Image.asset("assets/logo.png")),
-                            SizedBox(width: 20),
+                                width: Get.width * 0.3,
+                                height: Get.width * 0.3,
+                                child: Image.asset(
+                                  "assets/logo.png",
+                                  fit: BoxFit.contain,
+                                )),
+                            //  SizedBox(width: 5),
                             Text(
                               "SharikCare",
                               style: Get.textTheme.headlineMedium!
@@ -184,9 +187,20 @@ class _SignupPageState extends State<SignupPage> {
               print(authcontroller.nameEditingController.text.trim());
               print(authcontroller.phoneEditingController.text.trim());
               var code = generateRandomString(4);
-              await verifyPhone(
-                  authcontroller.phoneEditingController.text, code);
-              Get.to(Otp(code: code, isDriver: false));
+
+              if (authcontroller.passwordEditingController.text.isEmpty ||
+                  authcontroller.phoneEditingController.text.isEmpty ||
+                  authcontroller.nameEditingController.text.isEmpty ||
+                  authcontroller.emailEditingController.text.isEmpty) {
+                alertError("Fill All Fields Please", "");
+              } else {
+                authcontroller.setlaodingtrue();
+                await verifyPhone(
+                    authcontroller.phoneEditingController.text, code);
+                Get.to(Otp(code: code, isDriver: false));
+
+                authcontroller.setloadingfalse();
+              }
             },
             cntr:
                 Text(getStatment("Next"), style: Get.textTheme.headlineLarge)),
@@ -208,7 +222,8 @@ class _SignupPageState extends State<SignupPage> {
             SizedBox(
               height: Get.width * 0.15,
               child: ClipOval(
-                child: Image.asset('assets/logo.png'),
+                child: Container(
+                    color: maincolor, child: Image.asset('assets/logo.png')),
               ),
             ),
             SizedBox(width: 20),
@@ -217,7 +232,7 @@ class _SignupPageState extends State<SignupPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Welcome Back!',
+                  getStatment("Welcome back"),
                   style: Get.textTheme.headlineLarge!
                       .copyWith(color: Colors.black),
                 ),
@@ -303,47 +318,6 @@ class _SignupPageState extends State<SignupPage> {
         const SizedBox(
           height: 20,
         ),
-        Align(
-          alignment: Alignment.center,
-          child: Text(
-            'or',
-            style: Get.textTheme.bodySmall!
-                .copyWith(fontSize: 20, fontWeight: FontWeight.w200),
-          ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        mybutton(
-            image: 'assets/facebook.png',
-            ontap: () {
-              print('button tapped');
-            },
-            cntr: Text('Continue with Facebook',
-                style: Get.textTheme.headlineLarge!
-                    .copyWith(color: Colors.black))),
-        const SizedBox(
-          height: 20,
-        ),
-        mybutton(
-            image: 'assets/google.png',
-            ontap: () {
-              print('button tapped');
-            },
-            cntr: Text('Continue with Google',
-                style: Get.textTheme.headlineLarge!
-                    .copyWith(color: Colors.black))),
-        const SizedBox(
-          height: 20,
-        ),
-        mybutton(
-            image: 'assets/apple.png',
-            ontap: () {
-              print('button tapped');
-            },
-            cntr: Text('Continue with Apple',
-                style: Get.textTheme.headlineLarge!
-                    .copyWith(color: Colors.black))),
         const SizedBox(
           height: 20,
         ),
@@ -352,7 +326,7 @@ class _SignupPageState extends State<SignupPage> {
           child: Row(
             children: [
               Text(
-                'Dont have account ?',
+                getStatment("Don't you have an account?"),
                 style: Get.textTheme.bodyMedium!.copyWith(fontSize: 14),
               ),
               TextButton(
@@ -362,7 +336,7 @@ class _SignupPageState extends State<SignupPage> {
                   });
                 },
                 child: Text(
-                  'Signup',
+                  getStatment("Sign up"),
                   style: Get.textTheme.bodyMedium!
                       .copyWith(fontSize: 14, color: maincolor),
                 ),
@@ -373,7 +347,7 @@ class _SignupPageState extends State<SignupPage> {
         TextButton(
           onPressed: () {},
           child: Text(
-            'Forget your password ?',
+            getStatment("Forget your password?"),
             style: Get.textTheme.bodyMedium!
                 .copyWith(fontSize: 14, color: maincolor),
           ),
@@ -392,7 +366,8 @@ class _SignupPageState extends State<SignupPage> {
       borderRadius: const BorderRadius.all(Radius.circular(20)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
-          "Looks Like You Dont Have an account Let's creat account for you",
+          getStatment(
+              "It seems that you don't have an account, let us help you to create one"),
           style: Get.textTheme.bodyLarge!.copyWith(color: white),
         ),
         const SizedBox(
@@ -437,7 +412,8 @@ class _SignupPageState extends State<SignupPage> {
           height: 20,
         ),
         Text(
-          'By Selecting Agree and Continue below,',
+          getStatment(
+              'By selecting agree and continue below, i agree to terms of service and privacy policy'),
           style: Get.textTheme.bodyLarge!.copyWith(color: white),
         ),
         InkWell(
@@ -459,10 +435,20 @@ class _SignupPageState extends State<SignupPage> {
               print(authcontroller.passwordEditingController.text.trim());
               print(authcontroller.nameEditingController.text.trim());
               print(authcontroller.carmodeleEditingController.text.trim());
+              print(authcontroller.phoneEditingController.text.trim());
               var code = generateRandomString(4);
-              await verifyPhone(
-                  authcontroller.phoneEditingController.text, code);
-              Get.to(Otp(code: code, isDriver: true));
+              if (authcontroller.passwordEditingController.text.isEmpty ||
+                  authcontroller.phoneEditingController.text.isEmpty ||
+                  authcontroller.nameEditingController.text.isEmpty ||
+                  authcontroller.emailEditingController.text.isEmpty) {
+                alertError("Fill All Fields Please", "");
+              } else {
+                authcontroller.setlaodingtrue();
+                await verifyPhone(
+                    authcontroller.phoneEditingController.text, code);
+                Get.to(Otp(code: code, isDriver: true));
+                authcontroller.setloadingfalse();
+              }
 
               print('button tapped');
             },
@@ -494,7 +480,7 @@ class _SignupPageState extends State<SignupPage> {
             {"to": number}
           ],
           "from": "Rafik Transport",
-          "text": "Your Verefication code from Azzouz $code"
+          "text": "Your Verefication code from is $code"
         }
       ]
     });
