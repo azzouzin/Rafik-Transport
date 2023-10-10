@@ -74,7 +74,7 @@ class _SignupPageState extends State<SignupPage> {
                                 )),
                             //  SizedBox(width: 5),
                             Text(
-                              "SharikCare",
+                              "SharikCar",
                               style: Get.textTheme.headlineMedium!
                                   .copyWith(color: Colors.white),
                             )
