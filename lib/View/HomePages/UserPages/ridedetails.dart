@@ -62,6 +62,7 @@ class RideDetails extends StatelessWidget {
                       endpoint: ride.endpoint!, startpoint: ride.startpoint!),
                 ),
                 const SizedBox(height: 10),
+
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   child: SizedBox(
@@ -115,66 +116,79 @@ class RideDetails extends StatelessWidget {
 
                 Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      '${ride.driver!.carmodele}',
-                      style: Get.textTheme.bodyLarge!
-                          .copyWith(color: Colors.black),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${ride.driver!.carmodele}',
+                          style: Get.textTheme.bodyLarge!
+                              .copyWith(color: Colors.black),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Get.width * 0.05, vertical: 0),
+                          child: ClipOval(
+                            child: SizedBox(
+                                height: Get.width * 0.1,
+                                width: Get.width * 0.1,
+                                child: Image.network(
+                                  ride.driver!.image!,
+                                  fit: BoxFit.cover,
+                                )),
+                          ),
+                        ),
+                      ],
                     )),
                 //Divider
                 Padding(
                   padding: EdgeInsets.only(
-                      left: Get.width * 0.05, right: Get.width * 0.05, top: 15),
+                      left: Get.width * 0.05, right: Get.width * 0.05, top: 0),
                   child: const Divider(
                     color: Colors.grey,
                     thickness: 0.5,
                   ),
                 ),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: Get.width * 0.05,
-                          right: Get.width * 0.05,
-                          top: 15),
-                      child: Text(
-                          '${getStatment('Seats available')} : ${ride.seats}',
-                          style: Get.textTheme.bodyMedium),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Get.width * 0.05, vertical: 10),
-                      child: ClipOval(
-                        child: SizedBox(
-                            height: Get.width * 0.175,
-                            width: Get.width * 0.175,
-                            child: Image.network(
-                              ride.driver!.image!,
-                              fit: BoxFit.cover,
-                            )),
-                      ),
-                    ),
-                  ],
-                ),
-                //Locations
                 Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: Get.width * 0.05, vertical: 10),
-                  child: Text('${getStatment('Ride price')} : ${ride.price} DA',
-                      style: Get.textTheme.bodyLarge),
-                ),
-
-                //  SizedBox(height: 5),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: Get.width * 0.05, vertical: 10),
+                  padding: EdgeInsets.only(
+                      left: Get.width * 0.05, right: Get.width * 0.12, top: 5),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('${getStatment('Phone number')} :',
+                      Text('${getStatment('Seats available')} ',
                           style: Get.textTheme.bodyLarge),
+                      Expanded(child: Container()),
+                      Text(' ${ride.seats}', style: Get.textTheme.bodyLarge),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 5),
+                //Locations
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: Get.width * 0.05, right: Get.width * 0.12, top: 5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('${getStatment('Ride price')}',
+                          style: Get.textTheme.bodyLarge),
+                      Expanded(child: Container()),
+                      Text('${ride.price} DA', style: Get.textTheme.bodyLarge),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 5),
+                //  SizedBox(height: 5),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: Get.width * 0.05, right: Get.width * 0.12, top: 5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('${getStatment('Phone number')}',
+                          style: Get.textTheme.bodyLarge),
+                      Expanded(child: Container()),
                       Text(' ${ride.driver!.phone}',
                           style: Get.textTheme.bodyLarge),
                     ],

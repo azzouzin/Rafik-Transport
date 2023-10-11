@@ -60,15 +60,19 @@ class _DriverRideDetailsState extends State<DriverRideDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SizedBox(
-                    height: Get.height * 0.45,
-                    width: Get.width,
-                    child: flutterMap()),
+                  height: Get.height * 0.45,
+                  width: Get.width,
+                  child: MapScreen(
+                      endpoint: widget.ride.endpoint!,
+                      startpoint: widget.ride.startpoint!),
+                ),
                 const SizedBox(height: 10),
+
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   child: SizedBox(
-                    height: 20,
-                    width: Get.width,
+                    width: Get.width * 0.95,
+                    height: Get.height * 0.03,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
@@ -86,91 +90,122 @@ class _DriverRideDetailsState extends State<DriverRideDetails> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Iconsax.location,
-                        color: pink,
-                      ),
-                      Text('${widget.ride.to}',
-                          style: Get.textTheme.bodyMedium),
-                    ],
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  child: SizedBox(
+                    width: Get.width * 0.95,
+                    height: Get.height * 0.03,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Icon(
+                          Iconsax.location,
+                          color: pink,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text('${widget.ride.to}',
+                            style: Get.textTheme.bodyMedium),
+                      ],
+                    ),
                   ),
                 ),
                 //CAr Details
-                Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      '${widget.ride.driver!.carmodele}',
-                      style: Get.textTheme.bodyLarge!
-                          .copyWith(color: Colors.black),
-                    )),
                 //Divider
                 Padding(
                   padding: EdgeInsets.only(
                       left: Get.width * 0.05, right: Get.width * 0.05, top: 15),
-                  child: Divider(
+                  child: const Divider(
                     color: Colors.grey,
                     thickness: 0.5,
                   ),
                 ),
 
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: Get.width * 0.05,
-                              right: Get.width * 0.05,
-                              top: 15),
-                          child: Text(
-                              '${getStatment('Seats available')} : ${widget.ride.seats}',
-                              style: Get.textTheme.bodyMedium),
+                        Text(
+                          '${widget.ride.driver!.carmodele}',
+                          style: Get.textTheme.bodyLarge!
+                              .copyWith(color: Colors.black),
                         ),
-                        //Locations
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: Get.width * 0.05, vertical: 10),
-                          child: Text(
-                              '${getStatment('Ride price')} : ${widget.ride.price} DA',
-                              style: Get.textTheme.bodyLarge),
+                              horizontal: Get.width * 0.05, vertical: 0),
+                          child: ClipOval(
+                            child: SizedBox(
+                                height: Get.width * 0.1,
+                                width: Get.width * 0.1,
+                                child: Image.network(
+                                  widget.ride.driver!.image!,
+                                  fit: BoxFit.cover,
+                                )),
+                          ),
                         ),
                       ],
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Get.width * 0.05, vertical: 10),
-                      child: ClipOval(
-                        child: SizedBox(
-                            height: Get.width * 0.175,
-                            width: Get.width * 0.175,
-                            child: Image.network(
-                              widget.ride.driver!.image,
-                              fit: BoxFit.cover,
-                            )),
-                      ),
-                    ),
-                  ],
+                    )),
+                //Divider
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: Get.width * 0.05, right: Get.width * 0.05, top: 0),
+                  child: const Divider(
+                    color: Colors.grey,
+                    thickness: 0.5,
+                  ),
                 ),
 
                 Padding(
                   padding: EdgeInsets.only(
-                      left: Get.width * 0.05, right: Get.width * 0.05, top: 0),
-                  child: Text(
-                      '${getStatment('Name')} : ${widget.ride.driver!.name!}',
-                      style: Get.textTheme.bodyLarge!
-                          .copyWith(fontSize: 20, fontWeight: FontWeight.bold)),
+                      left: Get.width * 0.05, right: Get.width * 0.12, top: 5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('${getStatment('Seats available')} ',
+                          style: Get.textTheme.bodyLarge),
+                      Expanded(child: Container()),
+                      Text(' ${widget.ride.seats}',
+                          style: Get.textTheme.bodyLarge),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 5),
+                //Locations
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: Get.width * 0.05, right: Get.width * 0.12, top: 5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('${getStatment('Ride price')}',
+                          style: Get.textTheme.bodyLarge),
+                      Expanded(child: Container()),
+                      Text('${widget.ride.price} DA',
+                          style: Get.textTheme.bodyLarge),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 5),
+                //  SizedBox(height: 5),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: Get.width * 0.05, right: Get.width * 0.12, top: 5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('${getStatment('Phone number')}',
+                          style: Get.textTheme.bodyLarge),
+                      Expanded(child: Container()),
+                      Text(' ${widget.ride.driver!.phone}',
+                          style: Get.textTheme.bodyLarge),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 25,
                 ),
-
                 authcontroller.driverProfile!.uid! == widget.ride.driver!.uid
                     ? Center(
                         child: mybutton(
@@ -209,8 +244,9 @@ class _DriverRideDetailsState extends State<DriverRideDetails> {
                         ),
                       )
                     : Container(),
-
-                SizedBox(height: 25),
+                SizedBox(
+                  height: 20,
+                )
               ]),
         ),
       ),

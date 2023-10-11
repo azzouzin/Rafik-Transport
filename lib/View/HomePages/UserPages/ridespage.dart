@@ -76,7 +76,7 @@ class RidesPage extends StatelessWidget {
           : OpenContainer(
               closedBuilder: (_, openContainer) {
                 return Container(
-                  height: Get.height * 0.2,
+                  height: Get.height * 0.225,
                   width: Get.width * 0.95,
                   child: Row(
                     children: [
@@ -99,13 +99,14 @@ class RidesPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             SizedBox(
-                              height: Get.height * 0.05,
+                              height: Get.height * 0.025,
                               width: Get.width * 0.5,
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
                                 children: [
                                   Text(
-                                    '${ridesController.searchedrides[index].from} - ${ridesController.searchedrides[index].to}',
+                                    '${ridesController.searchedrides[index].from}',
                                     style:
                                         Get.textTheme.headlineLarge!.copyWith(
                                       color: Colors.black,
@@ -114,6 +115,14 @@ class RidesPage extends StatelessWidget {
                                     ),
                                   ),
                                 ],
+                              ),
+                            ),
+                            Text(
+                              '${ridesController.searchedrides[index].to}',
+                              style: Get.textTheme.headlineLarge!.copyWith(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             Text(
