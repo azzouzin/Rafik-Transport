@@ -87,11 +87,9 @@ dev_dependencies:
   flutter_launcher_icons: "^0.13.1"
 
 flutter_launcher_icons:
-  android: "launcher_icon"
+  android: true
   ios: true
-  image_path: "assets/logo.png"
-  adaptive_icon_background: "assets/bgclr.png"
-  adaptive_icon_foreground: "assets/logo.png"
+  image_path: "assets/logoandroid.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
