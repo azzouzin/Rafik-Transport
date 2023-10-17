@@ -7,6 +7,42 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:163687543330:android:82800206f82b847815507b",
+        "android_client_info": {
+          "package_name": "com.azzouz.sharikCar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "163687543330-imfdn8qdbccuo9pvat90jan726kohfq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrdXqiZ60faInGYojfe2yoV6VD6Xh-JR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "163687543330-04rq8ld77qpubs0os8pb7e91021g7e6r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "163687543330-esh4fdqitdq3mnm4envf27iksgrulspd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.rafik.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:163687543330:android:73b998370347d88a15507b",
         "android_client_info": {
           "package_name": "com.example.rafik"
@@ -21,6 +57,42 @@
             "certificate_hash": "f0f2cec1aa7eef1e86809020315a1b551474f9f0"
           }
         },
+        {
+          "client_id": "163687543330-imfdn8qdbccuo9pvat90jan726kohfq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrdXqiZ60faInGYojfe2yoV6VD6Xh-JR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "163687543330-04rq8ld77qpubs0os8pb7e91021g7e6r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "163687543330-esh4fdqitdq3mnm4envf27iksgrulspd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.rafik.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163687543330:android:c6fc05bb027633e415507b",
+        "android_client_info": {
+          "package_name": "com.example.sharikCar"
+        }
+      },
+      "oauth_client": [
         {
           "client_id": "163687543330-imfdn8qdbccuo9pvat90jan726kohfq8.apps.googleusercontent.com",
           "client_type": 3

@@ -192,7 +192,7 @@ class _SignupPageState extends State<SignupPage> {
                   authcontroller.phoneEditingController.text.isEmpty ||
                   authcontroller.nameEditingController.text.isEmpty ||
                   authcontroller.emailEditingController.text.isEmpty) {
-                alertError("Fill All Fields Please", "");
+                //   alertError("Fill All Fields Please", "");
               } else {
                 authcontroller.setlaodingtrue();
                 await verifyPhone(
@@ -441,7 +441,7 @@ class _SignupPageState extends State<SignupPage> {
                   authcontroller.phoneEditingController.text.isEmpty ||
                   authcontroller.nameEditingController.text.isEmpty ||
                   authcontroller.emailEditingController.text.isEmpty) {
-                alertError("Fill All Fields Please", "");
+                //  alertError("Fill All Fields Please", "");
               } else {
                 authcontroller.setlaodingtrue();
                 await verifyPhone(

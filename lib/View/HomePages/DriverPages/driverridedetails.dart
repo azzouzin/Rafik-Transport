@@ -212,30 +212,34 @@ class _DriverRideDetailsState extends State<DriverRideDetails> {
                           bgcolor: pink,
                           ontap: () {
                             print(widget.ride.driver!.uid);
-                            Get.dialog(AlertDialog(
-                              title: const Text(
-                                  "Are you sure you want to delete this ride?"),
-                              actions: [
-                                ElevatedButton(
-                                  child: Text("Confirm"),
-                                  onPressed: () {
-                                    ridesController
-                                        .deleteride(widget.ride.uid!);
-                                    Get.toNamed("/driverhome");
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.pink),
-                                ),
-                                ElevatedButton(
-                                  child: Text("Cancel"),
-                                  onPressed: () {
-                                    Get.back();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.grey),
-                                )
-                              ],
-                            ));
+                            showDialog(
+                                context: context,
+                                builder: (builder) {
+                                  return AlertDialog(
+                                    title: const Text(
+                                        "Are you sure you want to delete this ride?"),
+                                    actions: [
+                                      ElevatedButton(
+                                        child: Text("Confirm"),
+                                        onPressed: () async {
+                                          ridesController
+                                              .deleteride(widget.ride.uid!);
+                                          Get.offAllNamed("/driverhome");
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.pink),
+                                      ),
+                                      ElevatedButton(
+                                        child: Text("Cancel"),
+                                        onPressed: () {
+                                          Get.back();
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.grey),
+                                      )
+                                    ],
+                                  );
+                                });
                           },
                           cntr: Text(
                             "Delete Ride",

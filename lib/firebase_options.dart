@@ -26,7 +26,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -51,20 +54,9 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCrdXqiZ60faInGYojfe2yoV6VD6Xh-JR0',
-    appId: '1:163687543330:android:73b998370347d88a15507b',
+    appId: '1:163687543330:android:82800206f82b847815507b',
     messagingSenderId: '163687543330',
     projectId: 'rafikfire-4600d',
     storageBucket: 'rafikfire-4600d.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCHCFC5kqc0VYQqWGC7Bj7Tc3MeDaepDXc',
-    appId: '1:163687543330:ios:0a5c95edc9ba37b115507b',
-    messagingSenderId: '163687543330',
-    projectId: 'rafikfire-4600d',
-    storageBucket: 'rafikfire-4600d.appspot.com',
-    androidClientId: '163687543330-cos7u95eanef45v6v84gfu2adbt8urcr.apps.googleusercontent.com',
-    iosClientId: '163687543330-s0a4unolfb7ogqmehpa9r7b67rbh9mdb.apps.googleusercontent.com',
-    iosBundleId: 'com.example.rafik',
   );
 }

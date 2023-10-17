@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rafik/Controller/authcontroller.dart';
 import 'package:rafik/Helpers/translate_helper.dart';
+import 'package:rafik/View/Compenents/components.dart';
 import 'package:rafik/View/Compenents/theme.dart';
 
 class Otp extends StatefulWidget {
@@ -17,6 +18,7 @@ class Otp extends StatefulWidget {
 }
 
 class _OtpState extends State<Otp> {
+  bool isloading = false;
   Authcontroller authcontroller = Get.put(Authcontroller());
   TextEditingController c1 = TextEditingController();
   TextEditingController c2 = TextEditingController();
@@ -28,175 +30,192 @@ class _OtpState extends State<Otp> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xfff7f6fb),
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 24, horizontal: 32),
-          child: Column(
-            children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Icon(
-                    Icons.arrow_back,
-                    size: 32,
-                    color: Colors.black54,
+        child: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 24, horizontal: 32),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Icon(
+                        Icons.arrow_back,
+                        size: 32,
+                        color: Colors.black54,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              SizedBox(
-                height: 18,
-              ),
-              Container(
-                width: 200,
-                height: 200,
-                decoration: BoxDecoration(
-                  color: maincolor,
-                  shape: BoxShape.circle,
-                ),
-                child: Image.asset(
-                  'assets/logo.png',
-                ),
-              ),
-              SizedBox(
-                height: 24,
-              ),
-              Text(
-                getStatment("verifaction"),
-                style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                getStatment("Enter your OTP code number"),
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black38,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 28,
-              ),
+                  SizedBox(
+                    height: 18,
+                  ),
+                  Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      color: maincolor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Image.asset(
+                      'assets/logo.png',
+                    ),
+                  ),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  Text(
+                    getStatment("verifaction"),
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    getStatment("Enter your OTP code number"),
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black38,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 28,
+                  ),
 
-              //Code Cases
+                  //Code Cases
 
-              Container(
-                padding: EdgeInsets.all(28),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Container(
+                    padding: EdgeInsets.all(28),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
                       children: [
-                        _textFieldOTP(first: true, last: false, controller: c1),
-                        _textFieldOTP(
-                            first: false, last: false, controller: c2),
-                        _textFieldOTP(
-                            first: false, last: false, controller: c3),
-                        _textFieldOTP(first: false, last: true, controller: c4),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _textFieldOTP(
+                                first: true, last: false, controller: c1),
+                            _textFieldOTP(
+                                first: false, last: false, controller: c2),
+                            _textFieldOTP(
+                                first: false, last: false, controller: c3),
+                            _textFieldOTP(
+                                first: false, last: true, controller: c4),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 22,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              setState(() {
+                                isloading = true;
+                              });
+                              if (c1.text + c2.text + c3.text + c4.text ==
+                                  widget.code) {
+                                widget.isDriver == true
+                                    ? await authcontroller.signupdriver(
+                                        authcontroller.emailEditingController.text
+                                            .trim(),
+                                        authcontroller
+                                            .passwordEditingController.text
+                                            .trim(),
+                                        authcontroller.nameEditingController.text
+                                            .trim(),
+                                        authcontroller
+                                            .phoneEditingController.text
+                                            .trim(),
+                                        authcontroller
+                                            .carmodeleEditingController.text
+                                            .trim())
+                                    : await authcontroller.signup(
+                                        email: authcontroller
+                                            .emailEditingController.text,
+                                        name: authcontroller
+                                            .nameEditingController.text,
+                                        password: authcontroller
+                                            .passwordEditingController.text,
+                                        phone: authcontroller
+                                            .phoneEditingController.text);
+                                setState(() {
+                                  isloading = false;
+                                });
+                              } else {
+                                setState(() {
+                                  isloading = false;
+                                });
+                                Get.snackbar("Your Account is not Verified ",
+                                    "Wrong Code Please try again",
+                                    backgroundColor: Colors.red,
+                                    colorText: Colors.white);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: white,
+                              backgroundColor: maincolor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(14.0),
+                              child: Text(
+                                getStatment("verifaction"),
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          ),
+                        )
                       ],
                     ),
-                    const SizedBox(
-                      height: 22,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (c1.text + c2.text + c3.text + c4.text ==
-                              widget.code) {
-                            widget.isDriver == true
-                                ? authcontroller.signupdriver(
-                                    authcontroller.emailEditingController.text
-                                        .trim(),
-                                    authcontroller
-                                        .passwordEditingController.text
-                                        .trim(),
-                                    authcontroller.nameEditingController.text
-                                        .trim(),
-                                    authcontroller.phoneEditingController.text
-                                        .trim(),
-                                    authcontroller
-                                        .carmodeleEditingController.text
-                                        .trim())
-                                : authcontroller.signup(
-                                    email: authcontroller
-                                        .emailEditingController.text,
-                                    name: authcontroller
-                                        .nameEditingController.text,
-                                    password: authcontroller
-                                        .passwordEditingController.text,
-                                    phone: authcontroller
-                                        .phoneEditingController.text);
-                          } else {
-                            Get.snackbar("Your Account is not Verified ",
-                                "Wrong Code Please try again",
-                                backgroundColor: Colors.red,
-                                colorText: Colors.white);
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: white,
-                          backgroundColor: maincolor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(14.0),
-                          child: Text(
-                            getStatment("verifaction"),
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 18,
-              ),
-              Text(
-                getStatment("Didn't you receive any code?"),
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black38,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 18,
-              ),
-              InkWell(
-                onTap: () async {
-                  print("Resend Code tapped");
-                  String code = generateRandomString(4);
-                  await verifyPhone(
-                      authcontroller.phoneEditingController.text, code);
-                  Get.to(Otp(isDriver: widget.isDriver, code: code));
-                },
-                child: Text(
-                  "Resend New Code",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.purple,
                   ),
-                  textAlign: TextAlign.center,
-                ),
+                  SizedBox(
+                    height: 18,
+                  ),
+                  Text(
+                    getStatment("Didn't you receive any code?"),
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black38,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 18,
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      print("Resend Code tapped");
+                      String code = generateRandomString(4);
+                      await verifyPhone(
+                          authcontroller.phoneEditingController.text, code);
+                      Get.to(Otp(isDriver: widget.isDriver, code: code));
+                    },
+                    child: Text(
+                      "Resend New Code",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.purple,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            isloading == true ? Loader() : SizedBox()
+          ],
         ),
       ),
     );
