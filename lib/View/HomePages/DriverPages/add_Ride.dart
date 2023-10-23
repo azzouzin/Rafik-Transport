@@ -178,21 +178,7 @@ class _AddRidePageState extends State<AddRidePage> {
                       ontap: () {
                         print('Creat New ride tapped');
 
-                        DateTime now = DateTime.now();
-
-                        DateFormat yearFormat = DateFormat('yyyy');
-                        DateFormat monthFormat = DateFormat('MM');
-                        DateFormat dayFormat = DateFormat('dd');
-                        DateFormat hourFormat = DateFormat('HH');
-                        DateFormat minuteFormat = DateFormat('mm');
-
-                        String year = yearFormat.format(now);
-                        String month = monthFormat.format(now);
-                        String day = dayFormat.format(now);
-                        String hour = hourFormat.format(now);
-                        String minute = minuteFormat.format(now);
-
-                        print('${_dateC.text}-${_timeC.text}');
+                         print('${_dateC.text}-${_timeC.text}');
                         ridesController.addnewRide(
                             from: departlocation.text,
                             to: destinationC.text,
