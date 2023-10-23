@@ -197,7 +197,11 @@ class _SignupPageState extends State<SignupPage> {
                 authcontroller.setlaodingtrue();
                 await verifyPhone(
                     authcontroller.phoneEditingController.text, code);
-                Get.to(Otp(code: code, isDriver: false));
+                await authcontroller.signup(
+                    email: authcontroller.emailEditingController.text,
+                    name: authcontroller.nameEditingController.text,
+                    password: authcontroller.passwordEditingController.text,
+                    phone: authcontroller.phoneEditingController.text);
 
                 authcontroller.setloadingfalse();
               }
@@ -444,9 +448,13 @@ class _SignupPageState extends State<SignupPage> {
                 //  alertError("Fill All Fields Please", "");
               } else {
                 authcontroller.setlaodingtrue();
-                await verifyPhone(
-                    authcontroller.phoneEditingController.text, code);
-                Get.to(Otp(code: code, isDriver: true));
+                await authcontroller.signupdriver(
+                    authcontroller.emailEditingController.text.trim(),
+                    authcontroller.passwordEditingController.text.trim(),
+                    authcontroller.nameEditingController.text.trim(),
+                    authcontroller.phoneEditingController.text.trim(),
+                    authcontroller.carmodeleEditingController.text.trim());
+
                 authcontroller.setloadingfalse();
               }
 

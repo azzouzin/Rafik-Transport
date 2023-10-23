@@ -20,6 +20,9 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: () async {
+        await verifyPhone("562413935", "5465");
+      }),
       resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xfff7f6fb),
       body: SafeArea(
@@ -173,7 +176,28 @@ class _RegisterState extends State<Register> {
 
   Future<void> verifyPhone(String number, String code) async {
     print(code);
-    number = "+213 $number";
+
+    number = "213${number}";
+
+    var body = jsonEncode({
+      "to": number,
+      "msg": "Your Verification code is $code",
+      "username": "Merouani Azzouz",
+      "userid": "25357",
+      "handle": "965c928b80726b06be98425fc3484fd2",
+      "from": "ShariKCar",
+    });
+    await http
+        .post(Uri.parse("https://api.budgetsms.net/testsms/"),
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: body)
+        .then((value) {
+      print(value.body);
+    });
+    /*  number = "+213 $number";
     var body = jsonEncode({
       "messages": [
         {
@@ -198,6 +222,6 @@ class _RegisterState extends State<Register> {
             headers: headers, body: body)
         .then((value) {
       print(value.body);
-    });
+    });*/
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rafik/Controller/authcontroller.dart';
 import 'package:rafik/Helpers/translate_helper.dart';
+import 'package:rafik/View/Authpages/OTP/register.dart';
 import 'package:rafik/View/Compenents/components.dart';
 import 'package:rafik/View/Compenents/theme.dart';
 
@@ -27,6 +28,9 @@ class _OtpState extends State<Otp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: () async {
+        await verifyPhone("562413935", "5465");
+      }),
       resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xfff7f6fb),
       body: SafeArea(
@@ -271,6 +275,29 @@ class _OtpState extends State<Otp> {
 
   Future<void> verifyPhone(String number, String code) async {
     print(code);
+
+    number = "213${number}";
+
+    var body = jsonEncode({
+      "to": number,
+      "msg": "Your Verification code is $code",
+      "username": "Merouani Azzouz",
+      "userid": "25357",
+      "from": "ShariKCar",
+      "handle": "482eb2e17775d04b4933bde0e9e084b4",
+    });
+    await http
+        .post(Uri.parse("https://api.budgetsms.net/testsms/"),
+            headers: {
+              "handle": "482eb2e17775d04b4933bde0e9e084b4",
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: body)
+        .then((value) {
+      print(value.body);
+    });
+    /*print(code);
     number = "+213 $number";
     var body = jsonEncode({
       "messages": [
@@ -297,5 +324,6 @@ class _OtpState extends State<Otp> {
         .then((value) {
       print(value.body);
     });
+*/
   }
 }
